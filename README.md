@@ -1,0 +1,2 @@
+# 35-COLLABORATION-ANDROID-DAANGN
+35기 AND SOPT 합동세미나 모바일 앱 안드로이드 6팀 - 당근
