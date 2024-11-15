@@ -63,7 +63,7 @@
 ## 🥕 Notion
 노션을 이용하여 작업 트래킹을 합니다.
 <br>
-🔖 [Notion](https://rightful-narwhal-db9.notion.site/6-13d037058d2080769dfacaf729173730?pvs=4)
+🔖 [Notion](https://rightful-narwhal-db9.notion.site/13f037058d208007b855d6d23a674448?pvs=4)
 
 <br>
 
