@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "org.sopt.carrot"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "org.sopt.carrot"
