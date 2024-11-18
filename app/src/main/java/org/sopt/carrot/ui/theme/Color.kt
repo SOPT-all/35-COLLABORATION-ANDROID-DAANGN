@@ -44,7 +44,7 @@ data class CarrotColors(
 )
 
 // Default color scheme
-val DefaultCarrotColors = CarrotColors(
+val defaultCarrotColors = CarrotColors(
     white = White,
     gray1 = Gray1,
     gray2 = Gray2,
@@ -61,4 +61,4 @@ val DefaultCarrotColors = CarrotColors(
     green = Green
 )
 
-val LocalCarrotColors = staticCompositionLocalOf { DefaultCarrotColors }
+val LocalCarrotColors = staticCompositionLocalOf { defaultCarrotColors }
