@@ -1,7 +1,4 @@
-package org.sopt.carrot.data.Service
-
-import retrofit2.http.Body
-import retrofit2.http.POST
+package org.sopt.carrot.data.service
 
 interface DummyService {
     //세미나 예시입니다.

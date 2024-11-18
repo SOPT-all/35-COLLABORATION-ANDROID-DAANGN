@@ -6,7 +6,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.sopt.carrot.BuildConfig
-import org.sopt.carrot.data.Service.DummyService
+import org.sopt.carrot.data.service.DummyService
 import retrofit2.Retrofit
 
 object ApiFactory {
