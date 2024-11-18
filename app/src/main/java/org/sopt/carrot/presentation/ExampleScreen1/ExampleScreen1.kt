@@ -10,12 +10,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.testing.TestNavHostController
+import org.sopt.carrot.core.common.ViewModelFactory
 import org.sopt.carrot.presentation.ScreenRoutes
 
 @Composable
 fun ExampleScreen1(navController: NavController) {
+    val viewModel: ExampleScreen1ViewModel = viewModel(factory = ViewModelFactory())
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
