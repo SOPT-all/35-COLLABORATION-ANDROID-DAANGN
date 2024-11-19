@@ -16,21 +16,21 @@ object CarrotTheme {
         @ReadOnlyComposable
         get() = LocalCarrotColors.current
 
-//    val typography: CarrotTypography
-//        @Composable
-//        @ReadOnlyComposable
-//        get() = LocalCarrotTypography.current
+    val typography: CarrotTypography
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalCarrotTypography.current
 }
 
 @Composable
 fun ProvideCarrotColorsAndTypography(
     colors: CarrotColors,
-//    typography: CarrotTypography,
+    typography: CarrotTypography,
     content: @Composable () -> Unit,
 ) {
     CompositionLocalProvider(
         LocalCarrotColors provides colors,
-//        LocalCarrotTypography provides typography,
+        LocalCarrotTypography provides typography,
         content = content,
     )
 }
@@ -39,7 +39,7 @@ fun ProvideCarrotColorsAndTypography(
 fun CARROTTheme(content: @Composable () -> Unit) {
     ProvideCarrotColorsAndTypography(
         colors = defaultCarrotColors,
-//        typography = defaultCarrotTypography
+        typography = defaultCarrotTypography
     ) {
         val view = LocalView.current
         if (!view.isInEditMode) {
