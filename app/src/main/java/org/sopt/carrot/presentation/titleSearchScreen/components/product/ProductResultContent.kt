@@ -44,8 +44,8 @@ fun ProductResultContent(
                     onClick = { onProductClick(product.id) }
                 )
                 if (index < products.size - 1) {  // 메인 상품 리스트의 마지막이 아닐 때만
-                    Divider(
-                        modifier = Modifier,
+                    HorizontalDivider(
+                        modifier = Modifier.padding(horizontal = 16.dp),
                         color = CarrotTheme.colors.gray2,
                         thickness = 1.dp
                     )
@@ -83,7 +83,7 @@ fun ProductResultContent(
                 )
                 if (index < similarProducts.size - 1) {  // 유사 상품 리스트의 마지막이 아닐 때만
                     HorizontalDivider(
-                        modifier = Modifier,
+                        modifier = Modifier.padding(horizontal = 16.dp),
                         thickness = 1.dp,
                         color = CarrotTheme.colors.gray2
                     )
