@@ -26,7 +26,8 @@ import org.sopt.carrot.ui.theme.CarrotTheme
 
 @Composable
 fun TitleSearchScreen(
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onProductClick: (Long) -> Unit
 ) {
     var searchQuery by remember { mutableStateOf("") }
 
@@ -68,7 +69,8 @@ fun TitleSearchScreen(
         ProductResultContent(
             products = sampleProducts,
             similarProducts = sampleSimilarProducts,
-            searchQuery = searchQuery
+            searchQuery = searchQuery,
+            onProductClick = onProductClick
         )
     }
 }
@@ -129,10 +131,3 @@ private val sampleSimilarProducts = listOf(
     )
 )
 
-@Preview(showBackground = true)
-@Composable
-private fun TitleSearchScreenPreview() {
-    TitleSearchScreen(
-        onBackClick = {}
-    )
-}

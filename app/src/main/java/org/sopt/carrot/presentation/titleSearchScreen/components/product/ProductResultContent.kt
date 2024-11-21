@@ -24,6 +24,7 @@ fun ProductResultContent(
     products: List<Product>,
     similarProducts: List<Product>,
     searchQuery: String,
+    onProductClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -39,7 +40,8 @@ fun ProductResultContent(
             ) { index, product ->
                 ProductItem(
                     product = product,
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    onClick = { onProductClick(product.id) }
                 )
                 if (index < products.size - 1) {  // 메인 상품 리스트의 마지막이 아닐 때만
                     Divider(
@@ -76,7 +78,8 @@ fun ProductResultContent(
             ) { index, product ->
                 ProductItem(
                     product = product,
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    onClick = { onProductClick(product.id) }
                 )
                 if (index < similarProducts.size - 1) {  // 유사 상품 리스트의 마지막이 아닐 때만
                     HorizontalDivider(
@@ -119,60 +122,3 @@ private fun SimilarProductsHeader(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-private fun ProductResultContentPreview() {
-    val mainProducts = listOf(
-        Product(
-            id = 1,
-            user_id = 1,
-            product_image = R.drawable.img_list_search_1.toString(),
-            title = "맨투맨",
-            address = "방이동",
-            price = "210,000"
-        ),
-        Product(
-            id = 2,
-            user_id = 2,
-            product_image = R.drawable.img_list_search_1.toString(),
-            title = "레더 맨투맨",
-            address = "송파구 잠실동",
-            price = "168,000"
-        )
-    )
-
-    val similarProducts = listOf(
-        Product(
-            id = 3,  // 다른 id 사용
-            user_id = 3,
-            product_image = R.drawable.img_list_search_1.toString(),
-            title = "DKNY 맨투맨",
-            address = "방이동",
-            price = "40,000"
-        ),
-        Product(
-            id = 4,  // 다른 id 사용
-            user_id = 3,
-            product_image = R.drawable.img_list_search_1.toString(),
-            title = "DKNY 맨투맨",
-            address = "방이동",
-            price = "40,000"
-        )
-    )
-
-    ProductResultContent(
-        products = mainProducts,
-        similarProducts = similarProducts,  // 다른 리스트 사용
-        searchQuery = "맨투맨"
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun EmptyProductResultContentPreview() {
-    ProductResultContent(
-        products = emptyList(),
-        similarProducts = emptyList(),
-        searchQuery = "없는상품"
-    )
-}
