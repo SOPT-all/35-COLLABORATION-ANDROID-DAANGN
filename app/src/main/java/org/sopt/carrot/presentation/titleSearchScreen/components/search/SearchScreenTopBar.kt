@@ -1,4 +1,4 @@
-package org.sopt.carrot.presentation.titleSearchScreen.ui
+package org.sopt.carrot.presentation.titleSearchScreen.components.search
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,38 +8,36 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Close
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.carrot.R
 import org.sopt.carrot.ui.theme.CarrotTheme
 
-
 @Composable
 fun SearchView(
     searchQuery: String,
     onSearchQueryChange: (String) -> Unit,
+    onSearch: () -> Unit,  // 추가
     onBackClick: () -> Unit,
     onCloseClick: () -> Unit
 ) {
@@ -47,25 +45,27 @@ fun SearchView(
         modifier = Modifier
             .fillMaxWidth()
             .height(42.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceAround
     ) {
         BackButton(onBackClick)
+        Spacer(modifier = Modifier.width(12.dp))
         SearchField(
             searchQuery = searchQuery,
             onSearchQueryChange = onSearchQueryChange,
+            onSearch = onSearch,  // 추가
             onCloseClick = onCloseClick,
-            modifier = Modifier.size(width = 340.dp, height = 42.dp)
+            modifier = Modifier
         )
     }
 }
 
 @Composable
 private fun BackButton(onBackClick: () -> Unit) {
-    IconButton(onClick = onBackClick) {
+    IconButton(onClick = onBackClick, modifier = Modifier.size(28.dp)) {
         Icon(
-            Icons.Default.ArrowBack,
+            painter = painterResource(id = R.drawable.ic_direction_left_black_28),
             contentDescription = "뒤로가기",
-            modifier = Modifier.size(28.dp)
         )
     }
 }
@@ -74,24 +74,31 @@ private fun BackButton(onBackClick: () -> Unit) {
 private fun SearchField(
     searchQuery: String,
     onSearchQueryChange: (String) -> Unit,
+    onSearch: () -> Unit,
     onCloseClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     BasicTextField(
         value = searchQuery,
         onValueChange = onSearchQueryChange,
-        modifier = modifier,
+        modifier = modifier.height(42.dp),
         textStyle = CarrotTheme.typography.body.md_18_03,
         singleLine = true,
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Search
+        ),
+        keyboardActions = KeyboardActions(
+            onSearch = { onSearch() }
+        ),
         decorationBox = { innerTextField ->
             Box(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
                     .background(
                         color = CarrotTheme.colors.gray2,
                         shape = RoundedCornerShape(6.dp)
                     )
-                    .padding(horizontal = 12.dp),
+                    .padding(start = 12.dp),
                 contentAlignment = Alignment.CenterStart
             ) {
                 if (searchQuery.isEmpty()) {
@@ -108,8 +115,9 @@ private fun SearchField(
                         modifier = Modifier.align(Alignment.CenterEnd)
                     ) {
                         Icon(
-                            Icons.Default.Close,
+                            painter = painterResource(id = R.drawable.ic_delete_circle_18),
                             contentDescription = "지우기",
+                            tint = Color.Unspecified,
                             modifier = Modifier.size(20.dp)
                         )
                     }
@@ -128,7 +136,9 @@ fun SearchTabs() {
     ) {
         Image(
             painter = painterResource(id = R.drawable.search_segmentedbar),
-            contentDescription = "검색 탭바"
+            contentDescription = "검색 탭바",
+            modifier = Modifier.fillMaxWidth(),
+            contentScale = ContentScale.FillWidth 
         )
     }
 }
@@ -137,31 +147,34 @@ fun SearchTabs() {
 fun SearchTopBar(
     searchQuery: String,
     onQueryChange: (String) -> Unit,
+    onSearch: () -> Unit, // 엔터 키 이벤트를 처리할 콜백 추가
     onBackClick: () -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.SpaceBetween
+        modifier = Modifier.fillMaxWidth().background(CarrotTheme.colors.white),
+        verticalArrangement = Arrangement.SpaceEvenly
     ) {
         Spacer(modifier = Modifier.height(38.dp))
-
         SearchView(
             searchQuery = searchQuery,
             onSearchQueryChange = onQueryChange,
+            onSearch = onSearch,
             onBackClick = onBackClick,
             onCloseClick = { onQueryChange("") }
         )
-        SearchTabs()
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
-fun SearchBarPreview() {
-    var searchQuery by remember { mutableStateOf("") }
+private fun SearchTopBarPreview() {
+
     SearchTopBar(
-        searchQuery = searchQuery,
-        onQueryChange = { searchQuery = it },
-        onBackClick = {},
+        searchQuery = "",
+        onSearch = {},
+        onQueryChange = {},
+        onBackClick = {}
     )
+
 }

@@ -1,4 +1,4 @@
-package org.sopt.carrot.presentation.titleSearchScreen.ui
+package org.sopt.carrot.presentation.titleSearchScreen.components.search
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -6,23 +6,35 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.sopt.carrot.R
 import org.sopt.carrot.ui.theme.CarrotTheme
 
+private data class FilterItem(
+    val text: String,
+    val isFullWidth: Boolean = false
+)
+
+private val filterItems = listOf(
+    FilterItem("가락2동 외 59", true),
+    FilterItem("가격"),
+    FilterItem("카테고리"),
+    FilterItem("정확도순")
+)
 
 @Composable
 fun SearchFilterLayout(
@@ -33,43 +45,25 @@ fun SearchFilterLayout(
         color = CarrotTheme.colors.white
     ) {
         LazyRow(
-            modifier = Modifier.fillMaxWidth().padding(12.dp),
+            modifier = Modifier
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            item {
+            items(filterItems) { item ->
                 FilterChip(
-                    text = "가락2동 외 59",
+                    text = item.text,
                     onClick = { /* TODO */ },
-                    modifier = Modifier.width(IntrinsicSize.Max)
-                )
-            }
-
-            item {
-                FilterChip(
-                    text = "가격",
-                    onClick = { /* TODO */ },
-                    modifier = Modifier.wrapContentWidth()
-                )
-            }
-
-            item {
-                FilterChip(
-                    text = "카테고리",
-                    onClick = { /* TODO */ },
-                    modifier = Modifier.wrapContentWidth()
-                )
-            }
-
-            item {
-                FilterChip(
-                    text = "정확도순",
-                    onClick = { /* TODO */ },
-                    modifier = Modifier.wrapContentWidth()
+                    modifier = if (item.isFullWidth) {
+                        Modifier.width(IntrinsicSize.Max)
+                    } else {
+                        Modifier.wrapContentWidth()
+                    }
                 )
             }
         }
     }
 }
+
 @Composable
 private fun FilterChip(
     text: String,
@@ -84,7 +78,7 @@ private fun FilterChip(
         modifier = modifier
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+            modifier = Modifier.padding(start = 11.dp, end = 8.dp , top = 8.dp , bottom = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
@@ -95,9 +89,9 @@ private fun FilterChip(
                 )
             )
             Icon(
-                imageVector = Icons.Rounded.KeyboardArrowDown,
+                painter = painterResource(id = R.drawable.ic_direction_down_18),
                 contentDescription = null,
-                tint = Color(0xFF212123)
+                modifier = Modifier.size(18.dp)
             )
         }
     }
@@ -106,7 +100,5 @@ private fun FilterChip(
 @Preview(showBackground = true)
 @Composable
 private fun FilterLayoutPreview() {
-    SearchFilterLayout(
-        modifier = Modifier.padding(16.dp)
-    )
+    SearchFilterLayout()
 }
