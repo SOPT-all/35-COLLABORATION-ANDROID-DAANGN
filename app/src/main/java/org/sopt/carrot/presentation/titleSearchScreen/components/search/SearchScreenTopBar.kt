@@ -138,7 +138,7 @@ fun SearchTabs() {
             painter = painterResource(id = R.drawable.search_segmentedbar),
             contentDescription = "검색 탭바",
             modifier = Modifier.fillMaxWidth(),
-            contentScale = ContentScale.FillWidth 
+            contentScale = ContentScale.FillWidth
         )
     }
 }

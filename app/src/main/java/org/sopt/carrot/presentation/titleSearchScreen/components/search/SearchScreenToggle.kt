@@ -42,9 +42,11 @@ fun SearchScreenToggle(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun SearchScreenTogglePreview() {
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .background(Color.White)) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.White)
+    ) {
         SearchScreenToggle()
     }
 }
