@@ -11,8 +11,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.sopt.carrot.R
 import org.sopt.carrot.core.extension.noRippleClickable
 import org.sopt.carrot.ui.theme.CarrotTheme
 
@@ -49,7 +51,7 @@ fun CategoryBottomBar(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "초기화",
+                text = stringResource(R.string.category_clear_button),
                 color = CarrotTheme.colors.gray8,
                 style = CarrotTheme.typography.body.b_18
             )
@@ -74,7 +76,7 @@ fun CategoryBottomBar(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "적용하기",
+                text = stringResource(R.string.category_apply_button),
                 color = CarrotTheme.colors.white,
                 style = CarrotTheme.typography.body.b_18
             )

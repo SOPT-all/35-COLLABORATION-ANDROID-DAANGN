@@ -9,9 +9,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import org.sopt.carrot.R
 import org.sopt.carrot.presentation.category.component.CategoryBottomBar
 import org.sopt.carrot.presentation.category.component.CategoryTopBar
 import org.sopt.carrot.presentation.category.component.section.CategorySelection
@@ -67,7 +69,7 @@ private fun CategoryContent(
             .padding(top = 24.dp)
     ) {
         Text(
-            text = "상세필터",
+            text = stringResource(R.string.category_filter_title),
             style = CarrotTheme.typography.title.b_25,
             modifier = Modifier.padding(start = 16.dp),
         )
