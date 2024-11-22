@@ -42,10 +42,8 @@ fun CategoryBottomBar(
                     shape = RoundedCornerShape(6.dp)
                 )
                 .padding(
-                    top = 18.dp,
-                    bottom = 19.dp,
-                    start = 36.dp,
-                    end = 36.dp
+                    vertical = 18.dp,
+                    horizontal = 36.dp,
                 ),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
