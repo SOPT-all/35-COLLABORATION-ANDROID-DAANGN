@@ -18,7 +18,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.carrot.R
@@ -78,7 +80,7 @@ private fun FilterChip(
         modifier = modifier
     ) {
         Row(
-            modifier = Modifier.padding(start = 11.dp, end = 8.dp, top = 8.dp, bottom = 8.dp),
+            modifier = Modifier.padding(start = 11.dp, end = 11.dp, top = 8.dp, bottom = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
@@ -88,7 +90,7 @@ private fun FilterChip(
                 color = CarrotTheme.colors.gray8
             )
             Icon(
-                painter = painterResource(id = R.drawable.ic_direction_down_18),
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_direction_down_18),
                 contentDescription = null,
                 modifier = Modifier.size(18.dp)
             )

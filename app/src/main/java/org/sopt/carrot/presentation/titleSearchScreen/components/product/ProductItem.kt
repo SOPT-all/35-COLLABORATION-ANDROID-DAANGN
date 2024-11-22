@@ -36,7 +36,7 @@ fun ProductItem(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(108.dp),
+                    .weight(1f),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 ProductInfo(
@@ -45,7 +45,7 @@ fun ProductItem(
                     price = product.price
                 )
                 ProductLikeButton(
-                    likeCount = product.id.toString()
+                    likeCount = product.id.toString(),
                 )
             }
         }

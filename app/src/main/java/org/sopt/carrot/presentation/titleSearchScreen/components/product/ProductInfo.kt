@@ -36,9 +36,7 @@ fun ProductInfo(
         )
         Text(
             text = "${price}원",
-            style = CarrotTheme.typography.body.md_14_03.copy(
-                fontWeight = FontWeight.Bold
-            ),
+            style = CarrotTheme.typography.body.sb_17_08,
             color = CarrotTheme.colors.gray8
         )
     }

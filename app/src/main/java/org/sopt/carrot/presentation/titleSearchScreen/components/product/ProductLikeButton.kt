@@ -11,7 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.carrot.R
@@ -37,7 +39,7 @@ private fun LikeIcon(
     modifier: Modifier = Modifier
 ) {
     Icon(
-        painter = painterResource(id = R.drawable.ic_like_md_18),
+        imageVector = ImageVector.vectorResource(id = R.drawable.ic_like_md_18),
         contentDescription = "좋아요 개수",
         modifier = modifier.size(18.dp)
     )

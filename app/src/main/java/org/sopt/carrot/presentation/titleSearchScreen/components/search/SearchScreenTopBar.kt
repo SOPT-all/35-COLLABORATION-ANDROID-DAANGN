@@ -25,8 +25,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,8 +47,7 @@ fun SearchView(
         modifier = Modifier
             .fillMaxWidth()
             .height(42.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceAround
+        verticalAlignment = Alignment.CenterVertically
     ) {
         BackButton(onBackClick)
         Spacer(modifier = Modifier.width(12.dp))
@@ -64,7 +65,7 @@ fun SearchView(
 private fun BackButton(onBackClick: () -> Unit) {
     IconButton(onClick = onBackClick, modifier = Modifier.size(28.dp)) {
         Icon(
-            painter = painterResource(id = R.drawable.ic_direction_left_black_28),
+            imageVector = ImageVector.vectorResource(id = R.drawable.ic_direction_left_black_28),
             contentDescription = "뒤로가기",
         )
     }
@@ -115,7 +116,7 @@ private fun SearchField(
                         modifier = Modifier.align(Alignment.CenterEnd)
                     ) {
                         Icon(
-                            painter = painterResource(id = R.drawable.ic_delete_circle_18),
+                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_delete_circle_18),
                             contentDescription = "지우기",
                             tint = Color.Unspecified,
                             modifier = Modifier.size(20.dp)
@@ -151,7 +152,9 @@ fun SearchTopBar(
     onBackClick: () -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth().background(CarrotTheme.colors.white),
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(CarrotTheme.colors.white),
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
         Spacer(modifier = Modifier.height(38.dp))

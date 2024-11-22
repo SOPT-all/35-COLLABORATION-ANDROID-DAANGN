@@ -31,6 +31,7 @@ fun ProductResultContent(
         modifier = modifier
             .fillMaxSize()
             .background(CarrotTheme.colors.white)
+            .padding(horizontal = 16.dp)
     ) {
         // 메인 상품 리스트
         if (products.isNotEmpty()) {
@@ -40,12 +41,10 @@ fun ProductResultContent(
             ) { index, product ->
                 ProductItem(
                     product = product,
-                    modifier = Modifier.padding(horizontal = 16.dp),
                     onClick = { onProductClick(product.id) }
                 )
                 if (index < products.size - 1) {  // 메인 상품 리스트의 마지막이 아닐 때만
                     HorizontalDivider(
-                        modifier = Modifier.padding(horizontal = 16.dp),
                         color = CarrotTheme.colors.gray2,
                         thickness = 1.dp
                     )
@@ -68,7 +67,6 @@ fun ProductResultContent(
             item {
                 SimilarProductsHeader(
                     searchQuery = searchQuery,
-                    modifier = Modifier.padding(horizontal = 16.dp)
                 )
             }
 
@@ -78,12 +76,10 @@ fun ProductResultContent(
             ) { index, product ->
                 ProductItem(
                     product = product,
-                    modifier = Modifier.padding(horizontal = 16.dp),
                     onClick = { onProductClick(product.id) }
                 )
                 if (index < similarProducts.size - 1) {  // 유사 상품 리스트의 마지막이 아닐 때만
                     HorizontalDivider(
-                        modifier = Modifier.padding(horizontal = 16.dp),
                         thickness = 1.dp,
                         color = CarrotTheme.colors.gray2
                     )

@@ -37,7 +37,7 @@ fun SearchKeywordLayout(
 ) {
     Surface(
         color = CarrotTheme.colors.white,
-        modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 16.dp)
+        modifier = modifier.fillMaxWidth().padding(16.dp)
     ) {
         LazyRow(
             modifier = Modifier

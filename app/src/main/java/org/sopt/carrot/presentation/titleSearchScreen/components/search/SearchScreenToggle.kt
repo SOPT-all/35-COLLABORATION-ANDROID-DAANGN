@@ -12,7 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.carrot.R
@@ -22,14 +24,13 @@ import org.sopt.carrot.ui.theme.CarrotTheme
 fun SearchScreenToggle(modifier: Modifier = Modifier) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = modifier.size(width = 116.dp, height = 28.dp)
+        horizontalArrangement = Arrangement.Start,
+        modifier = modifier.fillMaxWidth()
     ) {
         Icon(
-            painter = painterResource(id = R.drawable.ic_check_28),
+            imageVector = ImageVector.vectorResource(id = R.drawable.ic_check_28),
             contentDescription = "판매중만 보기 체크",
             tint = Color.Unspecified,
-            modifier = modifier.size(28.dp)
         )
         Text(
             text = "판매중만 보기",
