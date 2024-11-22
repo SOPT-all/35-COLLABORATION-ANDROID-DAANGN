@@ -1,7 +1,7 @@
 package org.sopt.carrot.presentation.category.component.section
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -47,7 +47,7 @@ fun FilterTabs() {
                     selected = selectedIndex == index,
                     onClick = {},
                     modifier = Modifier
-                        .width(80.dp)
+                        .wrapContentWidth()
                         .padding(horizontal = 10.dp),
                     selectedContentColor = CarrotTheme.colors.gray8,
                     unselectedContentColor = CarrotTheme.colors.gray6
