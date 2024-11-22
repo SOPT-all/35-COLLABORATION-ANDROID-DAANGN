@@ -19,7 +19,7 @@ import okhttp3.internal.toImmutableList
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 @Composable
-fun FitterTabs() {
+fun FilterTabs() {
     val selectedIndex by remember { mutableIntStateOf(2) }
     val tabs = listOf("동네거리", "가격", "카테고리", "정확도순").toImmutableList()
 
@@ -65,6 +65,6 @@ fun FitterTabs() {
 
 @Preview
 @Composable
-private fun PreviewFitterTabSection() {
-    FitterTabs()
+private fun PreviewFilterTabSection() {
+    FilterTabs()
 }

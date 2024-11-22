@@ -15,7 +15,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import org.sopt.carrot.presentation.category.component.CategoryBottomBar
 import org.sopt.carrot.presentation.category.component.CategoryTopBar
 import org.sopt.carrot.presentation.category.component.section.CategorySelection
-import org.sopt.carrot.presentation.category.component.section.FitterTabs
+import org.sopt.carrot.presentation.category.component.section.FilterTabs
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 @Composable
@@ -74,7 +74,7 @@ private fun CategoryContent(
 
         Spacer(modifier = Modifier.height(13.dp))
 
-        FitterTabs()
+        FilterTabs()
 
         CategorySelection(
             categories = categories,
