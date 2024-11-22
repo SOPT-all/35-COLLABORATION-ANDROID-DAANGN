@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,6 +20,7 @@ import org.sopt.carrot.R
 import org.sopt.carrot.data.model.response.Product
 import org.sopt.carrot.presentation.titleSearchScreen.components.product.ProductResultContent
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchFilterLayout
+import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchKeywordLayout
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchScreenToggle
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchTabs
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchTopBar
@@ -50,6 +52,10 @@ fun TitleSearchScreen(
         }
 
         SearchTabs()
+
+        SearchKeywordLayout()
+
+        HorizontalDivider(thickness = 8.dp, color = CarrotTheme.colors.gray2)
 
         Column(
             modifier = Modifier
@@ -131,3 +137,11 @@ private val sampleSimilarProducts = listOf(
     )
 )
 
+@Preview(showBackground = true)
+@Composable
+private fun TitleSearchScreenPreview() {
+    TitleSearchScreen(
+        onBackClick = {},
+        onProductClick = {}
+    )
+}

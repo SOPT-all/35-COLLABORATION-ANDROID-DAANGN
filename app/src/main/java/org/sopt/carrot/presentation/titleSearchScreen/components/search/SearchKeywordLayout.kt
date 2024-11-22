@@ -1,58 +1,52 @@
 package org.sopt.carrot.presentation.titleSearchScreen.components.search
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.sopt.carrot.R
 import org.sopt.carrot.ui.theme.CarrotTheme
 
-private data class FilterItem(
+private data class KeywordItem(
     val text: String,
     val isFullWidth: Boolean = false
 )
 
-private val filterItems = listOf(
-    FilterItem("가락2동 외 59", true),
-    FilterItem("가격"),
-    FilterItem("카테고리"),
-    FilterItem("정확도순")
+private val KeywordItems = listOf(
+    KeywordItem("렉토 코트", true),
+    KeywordItem("렉토 자켓"),
+    KeywordItem("렉토 맨투맨"),
+    KeywordItem("렉토 패딩")
 )
 
 @Composable
-fun SearchFilterLayout(
+fun SearchKeywordLayout(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        modifier = modifier.fillMaxWidth(),
-        color = CarrotTheme.colors.white
+        color = CarrotTheme.colors.white,
+        modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 16.dp)
     ) {
         LazyRow(
             modifier = Modifier
                 .fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            items(filterItems) { item ->
-                FilterChip(
+            items(KeywordItems) { item ->
+                KeywordChip(
                     text = item.text,
-                    onClick = { /* TODO */ },
                     modifier = if (item.isFullWidth) {
                         Modifier.width(IntrinsicSize.Max)
                     } else {
@@ -65,35 +59,30 @@ fun SearchFilterLayout(
 }
 
 @Composable
-private fun FilterChip(
+private fun KeywordChip(
     text: String,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Surface(
-        onClick = onClick,
         shape = RoundedCornerShape(50.dp),
-        border = BorderStroke(1.dp, color = CarrotTheme.colors.gray3),
-        color = CarrotTheme.colors.white,
+        color = CarrotTheme.colors.gray2,
         modifier = modifier
     ) {
         Row(
-            modifier = Modifier.padding(start = 11.dp, end = 8.dp, top = 8.dp, bottom = 8.dp),
+            modifier = Modifier.padding(start = 11.dp, end = 11.dp, top = 8.dp, bottom = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Text(
                 text = text,
                 style = CarrotTheme.typography.body.md_14_03,
-                color = CarrotTheme.colors.gray8
-            )
-            Icon(
-                painter = painterResource(id = R.drawable.ic_direction_down_18),
-                contentDescription = null,
-                modifier = Modifier.size(18.dp)
+                color = CarrotTheme.colors.gray7
             )
         }
     }
 }
 
-
+@Preview(showBackground = true)
+@Composable
+private fun FilterLayoutPreview() {
+    SearchKeywordLayout()
+}
