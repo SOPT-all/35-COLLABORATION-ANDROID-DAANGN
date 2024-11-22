@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CARROT</string>
+
+    <!--category screen-->
+    <string name="category_filter_title">상세필터</string>
+    <string name="category_clear_button">초기화</string>
+    <string name="category_apply_button">적용하기</string>
+
 </resources>
