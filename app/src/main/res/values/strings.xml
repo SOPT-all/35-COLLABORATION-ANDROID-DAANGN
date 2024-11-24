@@ -6,4 +6,14 @@
     <string name="category_clear_button">초기화</string>
     <string name="category_apply_button">적용하기</string>
 
+    <!--main screen-->
+    <string name="main_bottom_mypage">나의 당근</string>
+    <string name="main_bottom_chat">채팅</string>
+    <string name="main_bottom_map">동네지도</string>
+    <string name="main_bottom_life">동네생활</string>
+    <string name="main_bottom_home">홈</string>
+    <string name="main_search_icon">Search Icon</string>
+    <string name="main_hamburger_icon">Hamburger Icon</string>
+    <string name="main_notification_icon">notification Icon</string>
+    <string name="main_reset_icon">Reset</string>
 </resources>
