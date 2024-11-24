@@ -99,7 +99,7 @@ fun ProductItemCard(item: MainProductModel) {
                 )
             }
 
-            Spacer(modifier = Modifier.height(7.dp))
+            Spacer(modifier = Modifier.height(6.dp))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -126,7 +126,7 @@ fun ProductItemCard(item: MainProductModel) {
                 )
             }
 
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(6.dp))
 
             Text(
                 text = item.price,
