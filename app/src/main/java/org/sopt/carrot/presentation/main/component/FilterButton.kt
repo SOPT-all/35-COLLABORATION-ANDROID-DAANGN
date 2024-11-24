@@ -17,10 +17,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import org.sopt.carrot.R
+import org.sopt.carrot.core.extension.noRippleClickable
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 @Composable
-fun FilterButton(text: String) {
+fun FilterButton(
+    text: String, onClick: () -> Unit
+) {
     Row(
         modifier = Modifier
             .background(
@@ -32,7 +35,9 @@ fun FilterButton(text: String) {
                 color = CarrotTheme.colors.gray3,
                 shape = RoundedCornerShape(20.dp)
             )
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .noRippleClickable { onClick() }, // 확장 함수 사용
+
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
