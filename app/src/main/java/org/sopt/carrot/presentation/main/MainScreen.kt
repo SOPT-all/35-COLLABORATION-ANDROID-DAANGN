@@ -35,10 +35,10 @@ import androidx.navigation.NavController
 import androidx.navigation.testing.TestNavHostController
 import org.sopt.carrot.R
 import org.sopt.carrot.presentation.ScreenRoutes
-import org.sopt.carrot.presentation.main.component.FilterButton
+import org.sopt.carrot.presentation.main.component.FilterChipButton
 import org.sopt.carrot.presentation.main.component.MainFloatingButton
 import org.sopt.carrot.presentation.main.component.ProductList
-import org.sopt.carrot.presentation.main.component.TagButton
+import org.sopt.carrot.presentation.main.component.TagChipButton
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 
@@ -150,7 +150,7 @@ fun ScrollableFilterBar(navController: NavController) {
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(listOf("가락2동 외 59", "가격", "카테고리", "정확도순")) { filterText ->
-                FilterButton(text = filterText,
+                FilterChipButton(text = filterText,
                     onClick = {
                         if (filterText == "카테고리") {
                             navController.navigate(ScreenRoutes.CATEGORY_SCREEN)
@@ -178,7 +178,7 @@ fun MainTagBar() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             tagList.forEach { filterText ->
-                TagButton(
+                TagChipButton(
                     text = filterText,
                     onRemoveClick = {
                         tagList.remove(filterText)
