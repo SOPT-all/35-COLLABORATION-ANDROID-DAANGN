@@ -31,9 +31,6 @@ fun AppNavHost(navController: NavHostController, modifier: Modifier = Modifier) 
         composable(ScreenRoutes.EXAMPLE_SCREEN_2) { ExampleScreen2(navController) }
         composable(ScreenRoutes.MAIN_SCREEN) { MainScreen(navController) }
 
-        composable(ScreenRoutes.MAIN_SCREEN) { MainScreen(navController) }
-
-
         composable(ScreenRoutes.CATEGORY_SCREEN) {
             CategoryScreen(
                 onBackClick = { navController.popBackStack() },

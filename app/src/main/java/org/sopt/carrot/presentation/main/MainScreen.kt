@@ -34,6 +34,7 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import androidx.navigation.testing.TestNavHostController
 import org.sopt.carrot.R
+import org.sopt.carrot.presentation.ScreenRoutes
 import org.sopt.carrot.presentation.main.component.FilterButton
 import org.sopt.carrot.presentation.main.component.MainFloatingButton
 import org.sopt.carrot.presentation.main.component.ProductList
@@ -48,9 +49,11 @@ fun MainScreen(navController: NavController) {
     val products = viewModel.products.value
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color.White),
     ) {
-        BottomBar(
+        MainBottomBar(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .zIndex(1f)
@@ -62,9 +65,9 @@ fun MainScreen(navController: NavController) {
                 .zIndex(0f),
             verticalArrangement = Arrangement.Top
         ) {
-            MainTop()
-            ScrollableFilterBar()
-            TagBar()
+            MainTopBar()
+            ScrollableFilterBar(navController)
+            MainTagBar()
             ProductList(items = products, listState = listState)
         }
 
@@ -79,7 +82,7 @@ fun MainScreen(navController: NavController) {
 }
 
 @Composable
-fun MainTop() {
+fun MainTopBar() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -120,7 +123,7 @@ fun MainTop() {
 }
 
 @Composable
-fun ScrollableFilterBar() {
+fun ScrollableFilterBar(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -147,7 +150,12 @@ fun ScrollableFilterBar() {
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(listOf("가락2동 외 59", "가격", "카테고리", "정확도순")) { filterText ->
-                FilterButton(text = filterText)
+                FilterButton(text = filterText,
+                    onClick = {
+                        if (filterText == "카테고리") {
+                            navController.navigate(ScreenRoutes.CATEGORY_SCREEN)
+                        }
+                    })
             }
         }
 
@@ -155,7 +163,7 @@ fun ScrollableFilterBar() {
 }
 
 @Composable
-fun TagBar() {
+fun MainTagBar() {
     val tagList = remember { mutableStateListOf("가락2동 외 59", "가격") }
     Spacer(modifier = Modifier.padding(top = 12.dp))
     if (tagList.isNotEmpty()) {
@@ -182,7 +190,7 @@ fun TagBar() {
 }
 
 @Composable
-fun BottomBar(modifier: Modifier = Modifier) {
+fun MainBottomBar(modifier: Modifier = Modifier) {
     val aspectRatio = 412f / 104f
 
     Row(
