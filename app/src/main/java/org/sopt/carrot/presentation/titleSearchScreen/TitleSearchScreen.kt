@@ -92,7 +92,7 @@ private val sampleProducts = listOf(
     Product(
         id = 1,
         user_id = 1,
-        product_image = R.drawable.img_list_search_1.toString(),
+        product_image = "https://ibb.co/s1y6Nyj",
         title = "맨투맨",
         address = "방이동",
         price = "210,000"
@@ -100,7 +100,7 @@ private val sampleProducts = listOf(
     Product(
         id = 2,
         user_id = 2,
-        product_image = R.drawable.img_list_search_1.toString(),
+        product_image = "https://ibb.co/s1y6Nyj",
         title = "레더 맨투맨",
         address = "송파구 잠실동",
         price = "168,000"
@@ -108,7 +108,7 @@ private val sampleProducts = listOf(
     Product(
         id = 4,
         user_id = 2,
-        product_image = R.drawable.img_list_search_1.toString(),
+        product_image = "https://ibb.co/s1y6Nyj",
         title = "레더 맨투맨",
         address = "송파구 잠실동",
         price = "168,000"
@@ -116,7 +116,7 @@ private val sampleProducts = listOf(
     Product(
         id = 5,
         user_id = 2,
-        product_image = R.drawable.img_list_search_1.toString(),
+        product_image = "https://ibb.co/s1y6Nyj",
         title = "레더 맨투맨",
         address = "송파구 잠실동",
         price = "168,000"
@@ -124,7 +124,7 @@ private val sampleProducts = listOf(
     Product(
         id = 6,
         user_id = 2,
-        product_image = R.drawable.img_list_search_1.toString(),
+        product_image = "https://ibb.co/s1y6Nyj",
         title = "레더 맨투맨",
         address = "송파구 잠실동",
         price = "168,000"
@@ -135,7 +135,7 @@ private val sampleSimilarProducts = listOf(
     Product(
         id = 3,
         user_id = 3,
-        product_image = R.drawable.img_list_search_1.toString(),
+        product_image = "https://ibb.co/s1y6Nyj",
         title = "DKNY 맨투맨",
         address = "방이동",
         price = "40,000"
