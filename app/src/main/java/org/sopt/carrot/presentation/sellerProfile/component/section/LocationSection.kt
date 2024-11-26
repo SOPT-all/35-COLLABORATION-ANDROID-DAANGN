@@ -6,10 +6,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,12 +29,14 @@ fun LocationSection() {
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         Row(
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.Top,
             horizontalArrangement = Arrangement.spacedBy(5.dp)
         ) {
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_ellipse_3),
                 contentDescription = null,
+                tint = Color.Unspecified,
+                modifier = Modifier.padding(top = 8.dp)
             )
             Text(
                 text = "송파구 삼전동 23회 인증, 서울 특별시 강동구 1 회 인증 (최근 30일)",
@@ -48,6 +52,7 @@ fun LocationSection() {
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_ellipse_3),
                 contentDescription = null,
+                tint = Color.Unspecified
             )
             Text(
                 text = "최근 3일 이내 활동  (2019년 7월  13일 가입)",

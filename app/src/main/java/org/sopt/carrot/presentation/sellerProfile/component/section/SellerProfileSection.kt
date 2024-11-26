@@ -91,7 +91,7 @@ fun SellerProfileSection(
         }
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(1f),
             horizontalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             Row(
@@ -100,7 +100,9 @@ fun SellerProfileSection(
                         color = CarrotTheme.colors.gray2,
                         shape = RoundedCornerShape(4.dp)
                     )
-                    .padding(vertical = 9.dp, horizontal = 53.dp)
+                    .padding(vertical = 9.dp)
+                    .weight(1f),
+                horizontalArrangement = Arrangement.Center
             ) {
                 Text(
                     text = "매너 칭찬하기",
@@ -115,8 +117,10 @@ fun SellerProfileSection(
                         color = CarrotTheme.colors.orange3,
                         shape = RoundedCornerShape(4.dp)
                     )
-                    .padding(vertical = 9.dp, horizontal = 66.dp)
-                    .noRippleClickable { onFollowClick() }
+                    .padding(vertical = 9.dp)
+                    .weight(1f)
+                    .noRippleClickable { onFollowClick() },
+                horizontalArrangement = Arrangement.Center
             ) {
                 Text(
                     text = "팔로우",
