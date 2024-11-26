@@ -1,7 +1,7 @@
 package org.sopt.carrot.domain.model
 
 
-data class MainProductModel(
+data class HomeProductModel(
     val id: Int,
     val userId: Int,
     val productImage: String,

@@ -30,11 +30,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import org.sopt.carrot.R
-import org.sopt.carrot.domain.model.MainProductModel
+import org.sopt.carrot.domain.model.HomeProductModel
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 @Composable
-fun ProductList(items: List<MainProductModel>, listState: LazyListState) {
+fun ProductList(items: List<HomeProductModel>, listState: LazyListState) {
     LazyColumn(
         modifier = Modifier.padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -44,9 +44,9 @@ fun ProductList(items: List<MainProductModel>, listState: LazyListState) {
             bottom = 72.dp
         )
     ) {
-        itemsIndexed(items) { index, item ->
-            ProductItemCard(item = item)
 
+        itemsIndexed(items, key = { _, item -> item.id }) { index, item ->
+            ProductItemCard(item = item)
             if (index != items.lastIndex) {
                 HorizontalDivider(
                     Modifier.fillMaxWidth(),
@@ -56,10 +56,12 @@ fun ProductList(items: List<MainProductModel>, listState: LazyListState) {
             }
         }
     }
+
 }
 
+
 @Composable
-fun ProductItemCard(item: MainProductModel) {
+fun ProductItemCard(item: HomeProductModel) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

@@ -11,6 +11,7 @@ import org.sopt.carrot.presentation.main.MainScreen
 import org.sopt.carrot.presentation.titleSearchScreen.TitleSearchScreen
 import org.sopt.carrot.presentation.category.CategoryScreen
 import org.sopt.carrot.presentation.main.MainScreen
+import org.sopt.carrot.presentation.main.MainViewModel
 
 @Composable
 fun AppNavHost(navController: NavHostController, modifier: Modifier = Modifier) {

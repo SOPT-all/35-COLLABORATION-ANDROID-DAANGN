@@ -1,5 +1,6 @@
 package org.sopt.carrot.presentation.main
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -20,6 +21,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -31,45 +35,71 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.testing.TestNavHostController
 import org.sopt.carrot.R
+import org.sopt.carrot.core.common.ViewModelFactory
 import org.sopt.carrot.presentation.ScreenRoutes
 import org.sopt.carrot.presentation.main.component.FilterChipButton
 import org.sopt.carrot.presentation.main.component.MainFloatingButton
 import org.sopt.carrot.presentation.main.component.ProductList
 import org.sopt.carrot.presentation.main.component.TagChipButton
+import org.sopt.carrot.presentation.util.UiState
 import org.sopt.carrot.ui.theme.CarrotTheme
-
 
 @Composable
 fun MainScreen(navController: NavController) {
     val listState = rememberLazyListState()
-    val viewModel = MainViewModel()
-    val products = viewModel.products.value
+    val viewModel: MainViewModel = viewModel(
+        factory = ViewModelFactory()
+    )
+    val uiState by viewModel.product.collectAsState()
+
+    // 최초 데이터 로드
+    LaunchedEffect(Unit) {
+        viewModel.fetchProducts()
+    }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(color = Color.White),
     ) {
+        when (uiState) {
+            is UiState.Loading -> {
+
+            }
+
+
+            is UiState.Error -> {
+                Log.d("MainScreen", "Error: ${(uiState as UiState.Error).message}")
+
+            }
+
+            is UiState.Success -> {
+                val products = (uiState as UiState.Success).data
+                Column(
+                    modifier = Modifier
+                        .padding(bottom = 56.dp)
+                        .zIndex(0f),
+                    verticalArrangement = Arrangement.Top
+                ) {
+                    MainTopBar()
+                    ScrollableFilterBar(navController)
+                    MainTagBar()
+                    ProductList(items = products, listState = listState)
+                }
+            }
+
+            else -> Unit
+        }
+
         MainBottomBar(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .zIndex(1f)
         )
-
-        Column(
-            modifier = Modifier
-                .padding(bottom = 56.dp)
-                .zIndex(0f),
-            verticalArrangement = Arrangement.Top
-        ) {
-            MainTopBar()
-            ScrollableFilterBar(navController)
-            MainTagBar()
-            ProductList(items = products, listState = listState)
-        }
 
         MainFloatingButton(
             listState = listState,
@@ -80,6 +110,100 @@ fun MainScreen(navController: NavController) {
         }
     }
 }
+
+//@Composable
+//fun MainScreen(navController: NavController) {
+//    val listState = rememberLazyListState()
+//    val viewModel: MainViewModel = viewModel(
+//        factory = ViewModelFactory()
+//    )
+//    val uiState by viewModel.product.collectAsState()
+//    Box(
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .background(color = Color.White),
+//    ) {
+//        when (uiState) {
+//
+//
+//            is UiState.Error -> {
+//                Log.d("ddd", "error")
+//            }
+//
+//            is UiState.Success -> {
+//                Log.d("ddddddd","성공")
+//                val products = (uiState as UiState.Success).data
+//                Column(
+//                    modifier = Modifier
+//                        .padding(bottom = 56.dp)
+//                        .zIndex(0f),
+//                    verticalArrangement = Arrangement.Top
+//                ) {
+//                    MainTopBar()
+//                    ScrollableFilterBar(navController)
+//                    MainTagBar()
+//                    ProductList(items = products, listState = listState)
+//                }
+//            }
+//
+//            else -> Unit
+//        }
+//
+//        MainBottomBar(
+//            modifier = Modifier
+//                .align(Alignment.BottomCenter)
+//                .zIndex(1f)
+//        )
+//
+//        MainFloatingButton(
+//            listState = listState,
+//            modifier = Modifier
+//                .align(Alignment.BottomEnd)
+//                .padding(bottom = 86.dp)
+//        ) {
+//        }
+//    }
+//}
+
+
+//@Composable
+//fun MainScreen(navController: NavController) {
+//    val listState = rememberLazyListState()
+//    val viewModel = MainViewModel()
+//    val products = viewModel.products.value
+//
+//    Box(
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .background(color = Color.White),
+//    ) {
+//        MainBottomBar(
+//            modifier = Modifier
+//                .align(Alignment.BottomCenter)
+//                .zIndex(1f)
+//        )
+//
+//        Column(
+//            modifier = Modifier
+//                .padding(bottom = 56.dp)
+//                .zIndex(0f),
+//            verticalArrangement = Arrangement.Top
+//        ) {
+//            MainTopBar()
+//            ScrollableFilterBar(navController)
+//            MainTagBar()
+//            ProductList(items = products, listState = listState)
+//        }
+//
+//        MainFloatingButton(
+//            listState = listState,
+//            modifier = Modifier
+//                .align(Alignment.BottomEnd)
+//                .padding(bottom = 86.dp)
+//        ) {
+//        }
+//    }
+//}
 
 @Composable
 fun MainTopBar() {
