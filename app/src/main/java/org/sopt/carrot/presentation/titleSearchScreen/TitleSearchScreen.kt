@@ -19,9 +19,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import org.sopt.carrot.R
 import org.sopt.carrot.core.common.ViewModelFactory
 import org.sopt.carrot.data.model.SearchProductModel
 import org.sopt.carrot.presentation.ScreenRoutes
@@ -56,7 +59,7 @@ fun TitleSearchScreen(navController: NavHostController) {
                     searchQuery = it
                 },
                 onSearch = { viewModel.searchProducts(searchQuery) },
-                onBackClick = { navController.popBackStack() }
+                onBackClick = {  }
             )
         }
 
@@ -82,10 +85,6 @@ fun TitleSearchScreen(navController: NavHostController) {
                     SearchFilterLayout(
                         modifier = Modifier.fillMaxWidth()
                     )
-
-                    Spacer(modifier = Modifier.height(6.dp))
-
-
                 }
 
                 ProductResultContent(
@@ -111,7 +110,7 @@ fun TitleSearchScreen(navController: NavHostController) {
 
             is UiState.Error -> {
                 Text(
-                    text = (searchState as UiState.Error).message ?: "오류가 발생했습니다.",
+                    text = (searchState as UiState.Error).message ?: stringResource(R.string.search_screen_error),
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     style = CarrotTheme.typography.body.md_15
                 )
@@ -119,5 +118,3 @@ fun TitleSearchScreen(navController: NavHostController) {
         }
     }
 }
-
-

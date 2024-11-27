@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -112,7 +113,7 @@ private fun SearchField(
             ) {
                 if (searchQuery.isEmpty()) {
                     Text(
-                        text = "여기에 검색어 입력해보던가",
+                        text = stringResource(R.string.search_text_holder),
                         style = CarrotTheme.typography.body.md_18_03,
                         color = CarrotTheme.colors.gray5
                     )

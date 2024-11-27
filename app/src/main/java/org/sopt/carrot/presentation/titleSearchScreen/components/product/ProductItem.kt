@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.sopt.carrot.core.extension.noRippleClickable
 import org.sopt.carrot.data.model.SearchProductModel
 
 @Composable
@@ -21,7 +22,7 @@ fun ProductItem(
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 18.dp)
-            .clickable(onClick = onClick)
+            .noRippleClickable(onClick = onClick)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),

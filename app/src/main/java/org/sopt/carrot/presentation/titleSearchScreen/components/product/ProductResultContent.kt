@@ -12,7 +12,9 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import org.sopt.carrot.R
 import org.sopt.carrot.data.model.SearchProductModel
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchScreenToggle
 import org.sopt.carrot.ui.theme.CarrotTheme
@@ -37,7 +39,7 @@ fun ProductResultContent(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 6.dp , start = 16.dp, end = 16.dp)
+                        .padding(top = 6.dp, start = 16.dp, end = 16.dp)
                 ) {
                     SearchScreenToggle()
                 }
@@ -114,14 +116,14 @@ private fun SimilarProductsHeader(
 ) {
     Column(modifier = modifier.padding(top = 18.dp)) {
         Text(
-            text = "원하는 매물을 찾지 못하셨나요?",
+            text = stringResource(R.string.message_no_find),
             style = CarrotTheme.typography.title.b_20_04,
             color = CarrotTheme.colors.gray8,
             modifier = Modifier
         )
 
         Text(
-            text = "${searchQuery}와 유사한 매물을 보여드릴게요.",
+            text = stringResource(R.string.message_to_recommend, searchQuery),
             style = CarrotTheme.typography.body.md_15_05,
             color = CarrotTheme.colors.gray5,
             modifier = Modifier

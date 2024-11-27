@@ -6,7 +6,7 @@
     <string name="category_clear_button">초기화</string>
     <string name="category_apply_button">적용하기</string>
 
-    <!--detail screem-->
+    <!--detail screen-->
     <string name="neighbor_notification">이웃들이 %1$s 게시글을 올리면 바로 알려드릴까요?</string>
     <string name="price_offer_not_available">가격 제안 불가</string>
     <string name="chat_button">채팅하기</string>
@@ -16,4 +16,12 @@
     <string name="last_connection_time">%1$s시간 전 접속</string>
     <string name="manner_temperature">매너온도</string>
     <string name="user_selling_items">%1$s님의 판매 물품</string>
+
+    <!--Search screen-->
+    <string name="search_screen_error">오류가 발생했습니다.</string>
+    <string name="search_text_holder">가락2동 근처에서 검색</string>
+    <string name="no_search_result">검색 결과가 없습니다</string>
+    <string name="error_search_result">검색 중 오류가 발생했습니다</string>
+    <string name="message_no_find">원하는 매물을 찾지 못하셨나요?</string>
+    <string name="message_to_recommend">%1$s와 유사한 매물을 보여드릴게요.</string>
 </resources>
