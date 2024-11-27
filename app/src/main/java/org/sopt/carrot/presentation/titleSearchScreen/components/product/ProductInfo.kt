@@ -10,11 +10,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import org.sopt.carrot.ui.theme.CarrotTheme
 
-
 @Composable
 fun ProductInfo(
-    title: String,
-    address: String,
+    title: String?,
+    address: String?,
     price: String,
     modifier: Modifier = Modifier
 ) {
@@ -23,14 +22,14 @@ fun ProductInfo(
         modifier = modifier
     ) {
         Text(
-            text = title,
+            text = title ?: "",
             style = CarrotTheme.typography.body.md_17,
             color = CarrotTheme.colors.gray8,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )
         Text(
-            text = address,
+            text = address ?: "",
             style = CarrotTheme.typography.body.md_14_03,
             color = CarrotTheme.colors.gray6
         )

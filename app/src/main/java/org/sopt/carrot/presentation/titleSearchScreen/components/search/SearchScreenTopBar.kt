@@ -30,6 +30,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.carrot.R
@@ -81,7 +82,14 @@ private fun SearchField(
 ) {
     BasicTextField(
         value = searchQuery,
-        onValueChange = onSearchQueryChange,
+        onValueChange = { newValue ->
+            if (newValue.contains("\n")) {
+                onSearchQueryChange(newValue.replace("\n", ""))
+                onSearch()
+            } else {
+                onSearchQueryChange(newValue)
+            }
+        },
         modifier = modifier.height(42.dp),
         textStyle = CarrotTheme.typography.body.md_18_03,
         singleLine = true,
