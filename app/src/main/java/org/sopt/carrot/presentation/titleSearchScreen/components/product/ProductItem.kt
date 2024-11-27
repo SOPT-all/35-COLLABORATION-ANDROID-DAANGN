@@ -1,6 +1,5 @@
 package org.sopt.carrot.presentation.titleSearchScreen.components.product
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,11 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.sopt.carrot.core.extension.noRippleClickable
-import org.sopt.carrot.data.model.SearchProductModel
+import org.sopt.carrot.domain.model.SearchModel
 
 @Composable
 fun ProductItem(
-    product: SearchProductModel,
+    product: SearchModel,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {

@@ -15,15 +15,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import org.sopt.carrot.R
-import org.sopt.carrot.data.model.SearchProductModel
+import org.sopt.carrot.domain.model.SearchModel
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchScreenToggle
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 
 @Composable
 fun ProductResultContent(
-    products: List<SearchProductModel>,
-    similarProducts: List<SearchProductModel>,
+    products: List<SearchModel>,
+    similarProducts: List<SearchModel>,
     searchQuery: String,
     onProductClick: (Long, Long) -> Unit,
     modifier: Modifier = Modifier
