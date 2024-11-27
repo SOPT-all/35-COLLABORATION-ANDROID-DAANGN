@@ -32,5 +32,5 @@ object ApiFactory {
 }
 
 object ServicePool {
-    val dummyService = ApiFactory.create<DummyService>()
+    val dummyService by lazy { ApiFactory.create<DummyService>() }
 }
