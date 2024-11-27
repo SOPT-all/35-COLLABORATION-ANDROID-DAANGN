@@ -91,7 +91,6 @@ fun KeywordAlertSection(
         }
         HorizontalDivider(thickness = 1.dp, color = CarrotTheme.colors.gray3)
     }
-
 }
 
 
