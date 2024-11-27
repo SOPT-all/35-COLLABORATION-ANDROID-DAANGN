@@ -2,6 +2,7 @@ package org.sopt.carrot.presentation.titleSearchScreen.components.product
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,7 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.sopt.carrot.data.model.SearchProductModel
+import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchScreenToggle
 import org.sopt.carrot.ui.theme.CarrotTheme
+
 
 @Composable
 fun ProductResultContent(
@@ -27,58 +30,68 @@ fun ProductResultContent(
         modifier = modifier
             .fillMaxSize()
             .background(CarrotTheme.colors.white)
-            .padding(horizontal = 16.dp)
     ) {
         // 메인 상품 리스트
         if (products.isNotEmpty()) {
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 6.dp , start = 16.dp, end = 16.dp)
+                ) {
+                    SearchScreenToggle()
+                }
+            }
             itemsIndexed(
                 items = products,
                 key = { _, item -> item.id }
             ) { index, product ->
-                ProductItem(
-                    product = product,
-                    onClick = { onProductClick(product.id, product.userId) }
-                )
-                if (index < products.size - 1) {  // 메인 상품 리스트의 마지막이 아닐 때만
-                    HorizontalDivider(
-                        color = CarrotTheme.colors.gray2,
-                        thickness = 1.dp
+                Column(Modifier.padding(horizontal = 16.dp)) {
+                    ProductItem(
+                        product = product,
+                        onClick = { onProductClick(product.id, product.userId) }
                     )
+                    if (index < products.size - 1) {
+                        HorizontalDivider(
+                            color = CarrotTheme.colors.gray2,
+                            thickness = 1.dp
+                        )
+                    }
                 }
             }
         }
 
         // 유사 상품 섹션
         if (similarProducts.isNotEmpty()) {
-
             item {
                 HorizontalDivider(
-                    modifier = Modifier
-                        .fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     thickness = 8.dp,
                     color = CarrotTheme.colors.gray2
                 )
             }
 
             item {
-                SimilarProductsHeader(
-                    searchQuery = searchQuery,
-                )
+                Column(Modifier.padding(horizontal = 16.dp)) {
+                    SimilarProductsHeader(searchQuery = searchQuery)
+                }
             }
 
             itemsIndexed(
                 items = similarProducts,
                 key = { _, item -> item.id }
             ) { index, product ->
-                ProductItem(
-                    product = product,
-                    onClick = { onProductClick(product.id, product.userId) }
-                )
-                if (index < similarProducts.size - 1) {  // 유사 상품 리스트의 마지막이 아닐 때만
-                    HorizontalDivider(
-                        thickness = 1.dp,
-                        color = CarrotTheme.colors.gray2
+                Column(Modifier.padding(horizontal = 16.dp)) {
+                    ProductItem(
+                        product = product,
+                        onClick = { onProductClick(product.id, product.userId) }
                     )
+                    if (index < similarProducts.size - 1) {
+                        HorizontalDivider(
+                            thickness = 1.dp,
+                            color = CarrotTheme.colors.gray2
+                        )
+                    }
                 }
             }
         }
@@ -86,7 +99,9 @@ fun ProductResultContent(
         // 빈 결과
         if (products.isEmpty() && similarProducts.isEmpty()) {
             item {
-                EmptyResultMessage()
+                Column(Modifier.padding(horizontal = 16.dp)) {
+                    EmptyResultMessage()
+                }
             }
         }
     }
@@ -113,4 +128,3 @@ private fun SimilarProductsHeader(
         )
     }
 }
-

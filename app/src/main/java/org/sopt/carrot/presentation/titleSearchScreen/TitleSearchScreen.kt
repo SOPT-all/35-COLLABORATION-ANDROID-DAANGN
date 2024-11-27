@@ -2,8 +2,11 @@ package org.sopt.carrot.presentation.titleSearchScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
@@ -23,7 +26,9 @@ import org.sopt.carrot.core.common.ViewModelFactory
 import org.sopt.carrot.data.model.SearchProductModel
 import org.sopt.carrot.presentation.ScreenRoutes
 import org.sopt.carrot.presentation.titleSearchScreen.components.product.ProductResultContent
+import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchFilterLayout
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchKeywordLayout
+import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchScreenToggle
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchTabs
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchTopBar
 import org.sopt.carrot.presentation.util.UiState
@@ -68,6 +73,21 @@ fun TitleSearchScreen(navController: NavHostController) {
 
             is UiState.Success -> {
                 val (products, similarProducts) = (searchState as UiState.Success<Pair<List<SearchProductModel>, List<SearchProductModel>>>).data
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                ) {
+                    SearchFilterLayout(
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(6.dp))
+
+
+                }
+
                 ProductResultContent(
                     products = products,
                     similarProducts = similarProducts,

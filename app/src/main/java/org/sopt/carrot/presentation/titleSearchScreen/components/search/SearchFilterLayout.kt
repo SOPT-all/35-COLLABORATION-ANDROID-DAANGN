@@ -47,8 +47,7 @@ fun SearchFilterLayout(
         color = CarrotTheme.colors.white
     ) {
         LazyRow(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(filterItems) { item ->
@@ -97,5 +96,3 @@ private fun FilterChip(
         }
     }
 }
-
-
