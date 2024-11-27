@@ -6,4 +6,14 @@
     <string name="category_clear_button">초기화</string>
     <string name="category_apply_button">적용하기</string>
 
+    <!--detail screem-->
+    <string name="neighbor_notification">이웃들이 %1$s 게시글을 올리면 바로 알려드릴까요?</string>
+    <string name="price_offer_not_available">가격 제안 불가</string>
+    <string name="chat_button">채팅하기</string>
+    <string name="report_post">이 게시글 신고하기</string>
+    <string name="also_viewed_with_post">이 글과 함께 봤어요</string>
+    <string name="status_reserved">예약중</string>
+    <string name="last_connection_time">%1$s시간 전 접속</string>
+    <string name="manner_temperature">매너온도</string>
+    <string name="user_selling_items">%1$s님의 판매 물품</string>
 </resources>
