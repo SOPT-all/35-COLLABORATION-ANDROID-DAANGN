@@ -64,7 +64,9 @@ fun UserInfoSection(
                     modifier = Modifier
                 )
             }
+
             Spacer(modifier = Modifier.width(10.dp))
+
             Column(
                 modifier = Modifier.padding(vertical = 4.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
