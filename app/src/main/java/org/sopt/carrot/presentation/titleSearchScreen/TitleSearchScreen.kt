@@ -27,6 +27,7 @@ import androidx.navigation.NavHostController
 import org.sopt.carrot.R
 import org.sopt.carrot.core.common.ViewModelFactory
 import org.sopt.carrot.data.model.SearchProductModel
+import org.sopt.carrot.domain.model.SearchModel
 import org.sopt.carrot.presentation.ScreenRoutes
 import org.sopt.carrot.presentation.titleSearchScreen.components.product.ProductResultContent
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchFilterLayout
@@ -75,7 +76,7 @@ fun TitleSearchScreen(navController: NavHostController) {
             }
 
             is UiState.Success -> {
-                val (products, similarProducts) = (searchState as UiState.Success<Pair<List<SearchProductModel>, List<SearchProductModel>>>).data
+                val (products, similarProducts) = (searchState as UiState.Success<Pair<List<SearchModel>, List<SearchModel>>>).data
 
                 Column(
                     modifier = Modifier

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.sopt.carrot.data.model.SearchProductModel
 import org.sopt.carrot.domain.model.SearchModel
 import org.sopt.carrot.domain.repository.SearchRepository
 import org.sopt.carrot.presentation.util.UiState
@@ -19,12 +20,14 @@ class SearchViewModel(
         viewModelScope.launch {
             _searchResults.value = UiState.Loading
             searchRepository.getSearchResults(keyword)
-                .onSuccess { pair ->
-                    _searchResults.value = if (pair.first.isEmpty() && pair.second.isEmpty()) {
-                        UiState.Empty
-                    } else {
-                        UiState.Success(pair)
-                    }
+                .onSuccess { (products, similarProducts) ->
+                    val domainProducts = products.map { it.toDomainModel() }
+                    val domainSimilarProducts = similarProducts.map { it.toDomainModel() }
+                    _searchResults.value = if (domainProducts.isEmpty() && domainSimilarProducts.isEmpty()) {
+                            UiState.Empty
+                        } else {
+                            UiState.Success(Pair(domainProducts, domainSimilarProducts))
+                        }
                 }
                 .onFailure { throwable ->
                     _searchResults.value = UiState.Error(throwable.message)
@@ -32,3 +35,12 @@ class SearchViewModel(
         }
     }
 }
+
+private fun SearchProductModel.toDomainModel() = SearchModel(
+    id = id,
+    userId = userId,
+    productImage = productImage,
+    title = title,
+    address = address,
+    price = price
+)

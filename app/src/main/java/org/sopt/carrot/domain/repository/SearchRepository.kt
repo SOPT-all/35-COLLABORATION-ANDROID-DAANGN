@@ -1,7 +1,7 @@
 package org.sopt.carrot.domain.repository
 
-import org.sopt.carrot.domain.model.SearchModel
+import org.sopt.carrot.data.model.SearchProductModel
 
 interface SearchRepository {
-    suspend fun getSearchResults(keyword: String?): Result<Pair<List<SearchModel>, List<SearchModel>>>
+    suspend fun getSearchResults(keyword: String?): Result<Pair<List<SearchProductModel>, List<SearchProductModel>>>
 }
