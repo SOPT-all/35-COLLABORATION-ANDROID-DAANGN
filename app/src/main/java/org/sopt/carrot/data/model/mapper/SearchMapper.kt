@@ -1,4 +1,4 @@
-package org.sopt.carrot.data.model
+package org.sopt.carrot.data.model.mapper
 
 import org.sopt.carrot.data.model.response.ResponseSearchDto
 import org.sopt.carrot.domain.model.SearchModel
