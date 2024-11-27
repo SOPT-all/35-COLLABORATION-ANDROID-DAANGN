@@ -24,21 +24,22 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import org.sopt.carrot.R
-import org.sopt.carrot.presentation.productDetailScreen.model.RelatedProductUiState
-import org.sopt.carrot.presentation.productDetailScreen.model.UserUiState
+import org.sopt.carrot.presentation.productDetailScreen.model.UiRelatedProductDto
+import org.sopt.carrot.presentation.productDetailScreen.model.UiUserInfoDto
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 
 @Composable
 fun RelatedProductSection(
-    userInfo: UserUiState,
-    relatedProducts: List<RelatedProductUiState>,
+    userInfo: UiUserInfoDto,
+    relatedProducts: List<UiRelatedProductDto>,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -53,7 +54,7 @@ fun RelatedProductSection(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "${userInfo.nickname}님의 판매 물품",
+                text = stringResource(R.string.user_selling_items, userInfo.nickname),
                 style = CarrotTheme.typography.body.md_17,
                 color = CarrotTheme.colors.gray8
             )
@@ -82,7 +83,7 @@ fun RelatedProductSection(
 
 @Composable
 private fun RelatedProductItem(
-    product: RelatedProductUiState,
+    product: UiRelatedProductDto,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -125,14 +126,14 @@ private fun RelatedProductItem(
 @Composable
 private fun RelatedProductSectionPreview() {
     val sampleProducts = List(4) {
-        RelatedProductUiState(
+        UiRelatedProductDto(
             productImage = "",
             title = "이렇게 제목이 길어지면 니가 뭘 할 수 있는데 이 자식아 ${it + 1}",
             price = "${(it + 1) * 10000}원"
         )
     }
 
-    val mockUserInfo = UserUiState(
+    val mockUserInfo = UiUserInfoDto(
         nickname = "민점",
         profileImage = "",
         address = "송파구 삼정동"

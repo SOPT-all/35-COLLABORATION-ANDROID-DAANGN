@@ -48,8 +48,7 @@ fun ProductTopBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(72.dp)
-            .padding(horizontal = 16.dp),
+            .padding(top = 45.dp, start = 16.dp, end = 16.dp, bottom = 8.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.Bottom
     ) {

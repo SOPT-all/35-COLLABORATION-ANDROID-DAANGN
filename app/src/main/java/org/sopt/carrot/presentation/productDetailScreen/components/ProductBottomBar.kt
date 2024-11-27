@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -66,7 +67,7 @@ private fun PriceInfo(
             )
         }
         Text(
-            text = "가격 제안 불가",
+            text = stringResource(R.string.price_offer_not_available),
             color = CarrotTheme.colors.gray6,
             style = CarrotTheme.typography.body.b_14
         )
@@ -94,7 +95,7 @@ private fun LikeButton(
         },
         contentDescription = "찜하기",
         tint = if (isLiked) {
-            Color(0xFFFF4F4F) // 빨간색으로 설정
+            Color.Red
         } else {
             CarrotTheme.colors.gray7 // 기본 색상
         }
@@ -107,17 +108,15 @@ private fun ChatButton(
 ) {
     Button(
         onClick = { },
-        modifier = modifier
-            .width(78.dp)
-            .height(36.dp),
+        modifier = modifier,
         colors = ButtonDefaults.buttonColors(
             containerColor = CarrotTheme.colors.orange1
         ),
-        contentPadding = PaddingValues(0.dp), // 기본 패딩 제거
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
         shape = RoundedCornerShape(4.dp)
     ) {
         Text(
-            text = "채팅하기",
+            text = stringResource(R.string.chat_button),
             style = CarrotTheme.typography.body.extb_15,
             color = CarrotTheme.colors.white
         )

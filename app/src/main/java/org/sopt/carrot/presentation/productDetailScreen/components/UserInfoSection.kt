@@ -23,19 +23,20 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import org.sopt.carrot.R
-import org.sopt.carrot.presentation.productDetailScreen.model.UserUiState
+import org.sopt.carrot.presentation.productDetailScreen.model.UiUserInfoDto
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 
 @Composable
 fun UserInfoSection(
-    userInfo: UserUiState,
+    userInfo: UiUserInfoDto,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -62,8 +63,6 @@ fun UserInfoSection(
                     imageVector = ImageVector.vectorResource(id = R.drawable.img_carrier_sm),
                     contentDescription = "캐리어 아이콘",
                     modifier = Modifier
-                        .size(19.dp)
-                        .offset(x = (-1).dp, y = (-1).dp)
                 )
             }
             Spacer(modifier = Modifier.width(10.dp))
@@ -73,21 +72,20 @@ fun UserInfoSection(
             ) {
                 Row(
                     modifier = Modifier,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     Text(
                         text = userInfo.nickname,
                         style = CarrotTheme.typography.body.b_18,
                         color = CarrotTheme.colors.gray8
                     )
-                    Spacer(modifier = Modifier.width(10.dp))
                     VerticalDivider(
                         modifier = Modifier.height(10.dp),
                         thickness = 1.dp
                     )
-                    Spacer(modifier = Modifier.width(10.dp))
                     Text(
-                        text = "5시간 전 접속",
+                        text = stringResource(R.string.last_connection_time, 5),
                         style = CarrotTheme.typography.body.md_13_18_013,
                         color = CarrotTheme.colors.gray5
                     )
@@ -109,7 +107,7 @@ fun UserInfoSection(
                     contentDescription = "유저 온도"
                 )
                 Text(
-                    text = "매너온도",
+                    text = stringResource(R.string.manner_temperature),
                     textDecoration = TextDecoration.Underline,
                     style = CarrotTheme.typography.caption.r_13,
                     color = CarrotTheme.colors.gray6
@@ -123,7 +121,7 @@ fun UserInfoSection(
 @Composable
 private fun UserInfoSectionPreview() {
     UserInfoSection(
-        userInfo = UserUiState(
+        userInfo = UiUserInfoDto(
             nickname = "한민재",
             profileImage = "",
             address = "송파구 삼정동"

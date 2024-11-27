@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
@@ -49,18 +50,18 @@ fun KeywordAlertSection(
             Text(
                 modifier = Modifier.weight(1f),
                 text = buildAnnotatedString {
+                    val fullText = stringResource(R.string.neighbor_notification, limitedTitle)
                     withStyle(style = CarrotTheme.typography.body.md_15_05.toSpanStyle()) {
-                        append("이웃들이 ")
+                        append(fullText.substringBefore(limitedTitle))
                     }
                     withStyle(style = CarrotTheme.typography.body.extb_15.toSpanStyle()) {
                         append(limitedTitle)
                     }
                     withStyle(style = CarrotTheme.typography.body.md_15_05.toSpanStyle()) {
-                        append(" 게시글을 올리면 바로 알려드릴까요?")
+                        append(fullText.substringAfter(limitedTitle))
                     }
                 }
             )
-
             Button(
                 modifier = Modifier
                     .wrapContentWidth(),

@@ -23,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,7 +41,7 @@ fun RecommendProductSection(
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         Text(
-            text = "이 글과 함께 봤어요",
+            text = stringResource(R.string.also_viewed_with_post),
             style = CarrotTheme.typography.body.md_17,
             color = CarrotTheme.colors.gray8
         )
@@ -107,7 +108,7 @@ private fun RecommendProductItem(
                         )
                 ) {
                     Text(
-                        text = "예약중",
+                        text = stringResource(R.string.status_reserved),
                         style = CarrotTheme.typography.caption.b_11,
                         color = CarrotTheme.colors.white,
                         modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)

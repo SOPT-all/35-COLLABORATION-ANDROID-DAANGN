@@ -4,21 +4,13 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RelatedProductResponse(
-    @SerialName("status")
-    val status: Int,
-    @SerialName("result")
-    val result: RelatedProducts
-)
-
-@Serializable
-data class RelatedProducts(
+data class ResponseRelatedProductsDto(
     @SerialName("products")
-    val products: List<RelatedProduct>
+    val products: List<ResponseRelatedProductDto>
 )
 
 @Serializable
-data class RelatedProduct(
+data class ResponseRelatedProductDto(
     @SerialName("id")
     val id: Long,
     @SerialName("productImage")

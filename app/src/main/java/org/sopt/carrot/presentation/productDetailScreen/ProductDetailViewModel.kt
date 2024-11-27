@@ -5,14 +5,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import org.jetbrains.annotations.VisibleForTesting
-import org.sopt.carrot.data.model.response.ProductInfo
-import org.sopt.carrot.data.model.response.RelatedProduct
-import org.sopt.carrot.data.model.response.UserInfo
+import org.sopt.carrot.data.model.response.ResponseProductInfoDto
+import org.sopt.carrot.data.model.response.ResponseRelatedProductDto
+import org.sopt.carrot.data.model.response.ResponseUserInfoDto
 import org.sopt.carrot.presentation.productDetailScreen.model.ProductDetailUiState
-import org.sopt.carrot.presentation.productDetailScreen.model.ProductUiState
-import org.sopt.carrot.presentation.productDetailScreen.model.RelatedProductUiState
-import org.sopt.carrot.presentation.productDetailScreen.model.UserUiState
+import org.sopt.carrot.presentation.productDetailScreen.model.UiProductInfoDto
+import org.sopt.carrot.presentation.productDetailScreen.model.UiRelatedProductDto
+import org.sopt.carrot.presentation.productDetailScreen.model.UiUserInfoDto
 
 class ProductDetailViewModel : ViewModel() {
     private val _uiState = MutableStateFlow<ProductDetailUiState>(ProductDetailUiState.Loading)
@@ -24,14 +23,14 @@ class ProductDetailViewModel : ViewModel() {
 
     private fun fetchProductDetail() {
         // Mock data for now
-        val mockUserInfo = UserInfo(
+        val mockUserInfo = ResponseUserInfoDto(
             userId = 1,
             nickname = "뷰모델",
             profileImage = "",
             address = "송파구 삼정동"
         )
 
-        val mockProductInfo = ProductInfo(
+        val mockProductInfo = ResponseProductInfoDto(
             productId = 1,
             productImage = "",
             title = "렉토 맨투맨",
@@ -42,25 +41,25 @@ class ProductDetailViewModel : ViewModel() {
         )
 
         val mockRelatedProducts = listOf(
-            RelatedProduct(
+            ResponseRelatedProductDto(
                 id = 1,
                 productImage = "~~~~",
                 title = "이거 뷰모델에 있는거임, 그 유저가 파는 상품 보여줌",
                 price = "24,000"
             ),
-            RelatedProduct(
+            ResponseRelatedProductDto(
                 id = 2,
                 productImage = "~~~~",
                 title = "이거 뷰모델에 있는거임, 그 유저가 파는 상품 보여줌",
                 price = "24,000"
             ),
-            RelatedProduct(
+            ResponseRelatedProductDto(
                 id = 3,
                 productImage = "~~~~",
                 title = "이거 뷰모델에 있는거임, 그 유저가 파는 상품 보여줌",
                 price = "24,000"
             ),
-            RelatedProduct(
+            ResponseRelatedProductDto(
                 id = 4,
                 productImage = "~~~~",
                 title = "이거 뷰모델에 있는거임, 그 유저가 파는 상품 보여줌",
@@ -76,9 +75,9 @@ class ProductDetailViewModel : ViewModel() {
     }
 
     private fun updateUiState(
-        userInfo: UserUiState,
-        productInfo: ProductUiState,
-        relatedProducts: List<RelatedProductUiState>
+        userInfo: UiUserInfoDto,
+        productInfo: UiProductInfoDto,
+        relatedProducts: List<UiRelatedProductDto>
     ) {
         _uiState.update {
             ProductDetailUiState.Success(
@@ -90,13 +89,13 @@ class ProductDetailViewModel : ViewModel() {
     }
 }
 
-private fun UserInfo.toUiState() = UserUiState(
+private fun ResponseUserInfoDto.toUiState() = UiUserInfoDto(
     nickname = nickname,
     profileImage = profileImage,
     address = address
 )
 
-private fun ProductInfo.toUiState() = ProductUiState(
+private fun ResponseProductInfoDto.toUiState() = UiProductInfoDto(
     productImage = productImage,
     title = title,
     category = category,
@@ -105,10 +104,8 @@ private fun ProductInfo.toUiState() = ProductUiState(
     view = view
 )
 
-private fun RelatedProduct.toUiState() = RelatedProductUiState(
+private fun ResponseRelatedProductDto.toUiState() = UiRelatedProductDto(
     productImage = productImage,
     title = title,
     price = price
 )
-
-

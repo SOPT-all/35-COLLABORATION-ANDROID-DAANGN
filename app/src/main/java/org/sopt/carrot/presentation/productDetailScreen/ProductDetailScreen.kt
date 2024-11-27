@@ -18,10 +18,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import org.sopt.carrot.presentation.ScreenRoutes
 import org.sopt.carrot.presentation.productDetailScreen.components.KeywordAlertSection
 import org.sopt.carrot.presentation.productDetailScreen.components.ProductBottomBar
@@ -38,7 +40,7 @@ fun ProductDetailScreen(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    val onBackClick = { navController.navigate(ScreenRoutes.TITLE_SEARCH) }
+    val onBackClick: () -> Unit = { navController.popBackStack() }
     val onHomeClick = { navController.navigate((ScreenRoutes.EXAMPLE_SCREEN_1)) }
     val viewModel: ProductDetailViewModel = remember { ProductDetailViewModel() }
     val uiState: ProductDetailUiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -48,18 +50,19 @@ fun ProductDetailScreen(
         scrollState.firstVisibleItemIndex > 0 || scrollState.firstVisibleItemScrollOffset > 0
 
     val backgroundColor by animateColorAsState(
-        targetValue = if (isScrolledPastImage) Color.White else Color.Transparent,
-        animationSpec = tween(durationMillis = 500),
+        targetValue = if (isScrolledPastImage) Color.White.copy(alpha = 1f) else Color.White.copy(alpha = 0f),
+        animationSpec = tween(durationMillis = 800),
         label = ""
     )
-
     Scaffold(
         topBar = {
             ProductTopBar(
                 onBackClick = onBackClick,
                 onHomeClick = onHomeClick,
                 backgroundColor = backgroundColor,
-                modifier = Modifier.zIndex(1f).background(backgroundColor)
+                modifier = Modifier
+                    .zIndex(1f)
+                    .background(backgroundColor)
             )
         },
         bottomBar = {
@@ -140,4 +143,13 @@ private fun ErrorScreen() {
     ) {
         Text(text = "에러가 발생했습니다.")
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ProductDetailScreenPreview() {
+    val mockNavController = rememberNavController()
+    ProductDetailScreen(
+        navController = mockNavController
+    )
 }

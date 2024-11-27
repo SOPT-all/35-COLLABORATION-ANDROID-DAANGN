@@ -9,16 +9,21 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.sopt.carrot.presentation.productDetailScreen.model.ProductUiState
+import org.sopt.carrot.R
+import org.sopt.carrot.presentation.productDetailScreen.model.UiProductInfoDto
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 @Composable
 fun ProductInfoSection(
-    productInfo: ProductUiState,
+    productInfo: UiProductInfoDto,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -36,27 +41,23 @@ fun ProductInfoSection(
                 color = CarrotTheme.colors.gray8
             )
 
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(2.dp)
-            ) {
-                Text(
-                    text = productInfo.category,
-                    textDecoration = TextDecoration.Underline,
-                    style = CarrotTheme.typography.caption.md_14_028,
-                    color = CarrotTheme.colors.gray5
-                )
-                Text(
-                    text = "·",
-                    style = CarrotTheme.typography.caption.md_14_028,
-                    color = CarrotTheme.colors.gray5
-                )
-                Text(
-                    text = "끌올 ${productInfo.view}시간 전",
-                    textDecoration = TextDecoration.Underline,
-                    style = CarrotTheme.typography.caption.md_14_028,
-                    color = CarrotTheme.colors.gray5
-                )
-            }
+            Text(
+                text = buildAnnotatedString {
+                    withStyle(
+                        SpanStyle(textDecoration = TextDecoration.Underline)
+                    ) {
+                        append(productInfo.category)
+                    }
+                    append(" . ")  // 밑줄 없는 부분
+                    withStyle(
+                        SpanStyle(textDecoration = TextDecoration.Underline)
+                    ) {
+                        append("끌올 ${productInfo.view}시간 전")
+                    }
+                },
+                style = CarrotTheme.typography.caption.md_14_028,
+                color = CarrotTheme.colors.gray5
+            )
         }
 
         Text(
@@ -72,25 +73,23 @@ fun ProductInfoSection(
                 horizontalArrangement = Arrangement.spacedBy(2.dp)
             ) {
                 Text(
-                    text = "관심 ${productInfo.view}",
-                    textDecoration = TextDecoration.Underline,
-                    style = CarrotTheme.typography.caption.md_14_028,
-                    color = CarrotTheme.colors.gray5
-                )
-                Text(
-                    text = "·",
-                    style = CarrotTheme.typography.caption.md_14_028,
-                    color = CarrotTheme.colors.gray5
-                )
-                Text(
-                    text = "조회 ${productInfo.view}",
-                    textDecoration = TextDecoration.Underline,
+                    text = buildAnnotatedString {
+                        pushStyle(SpanStyle(textDecoration = TextDecoration.Underline))
+                        append("관심 ${productInfo.view}")
+                        pop()
+
+                        append(" · ")
+
+                        pushStyle(SpanStyle(textDecoration = TextDecoration.Underline))
+                        append("조회 ${productInfo.view}")
+                        pop()
+                    },
                     style = CarrotTheme.typography.caption.md_14_028,
                     color = CarrotTheme.colors.gray5
                 )
             }
             Text(
-                text = "이 게시글 신고하기",
+                text = stringResource(R.string.report_post),
                 style = CarrotTheme.typography.body.md_15_05,
                 color = CarrotTheme.colors.gray6
             )
@@ -104,7 +103,7 @@ fun ProductInfoSection(
 private fun ProductInfoSectionPreview() {
 
     ProductInfoSection(
-        productInfo = ProductUiState(
+        productInfo = UiProductInfoDto(
             title = "앤유 하프집업 맨투맨",
             category = "의류",
             content = "5회미만 착용 세탁 후 보관중\n깔끔하고 핏도 예뻐요\n팔 안쪽에 연하게 얼룩 감안해서 가격 낮춤니다",

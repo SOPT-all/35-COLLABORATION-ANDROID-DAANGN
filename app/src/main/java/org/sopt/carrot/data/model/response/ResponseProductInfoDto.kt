@@ -4,15 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ProductDetailResponse(
-    @SerialName("status")
-    val status: Int,
-    @SerialName("result")
-    val result: ProductInfo
-)
-
-@Serializable
-data class ProductInfo(
+data class ResponseProductInfoDto(
     @SerialName("productId")
     val productId: Long,
     @SerialName("productImage")
