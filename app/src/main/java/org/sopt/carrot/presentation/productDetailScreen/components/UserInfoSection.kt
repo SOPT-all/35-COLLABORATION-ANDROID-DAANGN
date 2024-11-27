@@ -33,6 +33,7 @@ import org.sopt.carrot.R
 import org.sopt.carrot.presentation.productDetailScreen.model.UiUserInfoDto
 import org.sopt.carrot.ui.theme.CarrotTheme
 
+
 @Composable
 fun UserInfoSection(
     userInfo: UiUserInfoDto,
@@ -66,10 +67,11 @@ fun UserInfoSection(
             }
             Spacer(modifier = Modifier.width(10.dp))
             Column(
-                modifier = Modifier.padding(vertical = 4.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                modifier = Modifier.height(48.dp),
+                verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Row(
+                    modifier = Modifier,
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
@@ -95,21 +97,22 @@ fun UserInfoSection(
                 )
             }
         }
-        Column(
-            modifier = Modifier.padding(vertical = 4.dp),
-            horizontalAlignment = Alignment.End,
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.img_user_temperature),
-                contentDescription = "유저 온도"
-            )
-            Text(
-                text = stringResource(R.string.manner_temperature),
-                textDecoration = TextDecoration.Underline,
-                style = CarrotTheme.typography.caption.r_13,
-                color = CarrotTheme.colors.gray6
-            )
+        Row(modifier = Modifier.height(48.dp)) {
+            Column(
+                horizontalAlignment = Alignment.End,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.img_user_temperature),
+                    contentDescription = "유저 온도"
+                )
+                Text(
+                    text = stringResource(R.string.manner_temperature),
+                    textDecoration = TextDecoration.Underline,
+                    style = CarrotTheme.typography.caption.r_13,
+                    color = CarrotTheme.colors.gray6
+                )
+            }
         }
     }
 }

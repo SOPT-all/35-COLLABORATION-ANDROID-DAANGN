@@ -75,12 +75,12 @@ fun KeywordAlertSection(
             ) {
                 Row(
                     modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
                         imageVector = ImageVector.vectorResource(id = R.drawable.ic_notification_sm_12),
-                        contentDescription = null,
-                        modifier = Modifier.padding(end = 8.dp)
+                        contentDescription = null
                     )
                     Text(
                         text = "키워드 알림 받기",
