@@ -1,6 +1,6 @@
 package org.sopt.carrot.data.repositoryimpl
 
-import org.sopt.carrot.data.model.mapper.SearchMapper.toModel
+import org.sopt.carrot.data.mapper.SearchMapper.toModel
 import org.sopt.carrot.data.model.SearchProductModel
 import org.sopt.carrot.data.service.SearchService
 import org.sopt.carrot.domain.repository.SearchRepository
