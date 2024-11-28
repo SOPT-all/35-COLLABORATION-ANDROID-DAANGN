@@ -2,6 +2,7 @@ package org.sopt.carrot.presentation.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -43,7 +44,9 @@ import org.sopt.carrot.ui.theme.CarrotTheme
 
 
 @Composable
-fun MainScreen(navController: NavController) {
+fun MainScreen(
+    navController: NavController,
+) {
     val listState = rememberLazyListState()
     val viewModel = MainViewModel()
     val products = viewModel.products.value
@@ -65,7 +68,7 @@ fun MainScreen(navController: NavController) {
                 .zIndex(0f),
             verticalArrangement = Arrangement.Top
         ) {
-            MainTopBar()
+            MainTopBar(navController)
             ScrollableFilterBar(navController)
             MainTagBar()
             ProductList(items = products, listState = listState)
@@ -82,7 +85,7 @@ fun MainScreen(navController: NavController) {
 }
 
 @Composable
-fun MainTopBar() {
+fun MainTopBar(navController: NavController, modifier: Modifier = Modifier) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -107,7 +110,8 @@ fun MainTopBar() {
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_search_28),
-                contentDescription = stringResource(R.string.main_search_icon)
+                contentDescription = stringResource(R.string.main_search_icon),
+                modifier.clickable { navController.navigate(ScreenRoutes.TITLE_SEARCH) }
             )
             Icon(
                 painter = painterResource(id = R.drawable.ic_menu_hamburger_28),
@@ -191,13 +195,13 @@ fun MainTagBar() {
 
 @Composable
 fun MainBottomBar(modifier: Modifier = Modifier) {
-    val aspectRatio = 412f / 104f
+    val aspectRatio = 412f / 58f
 
     Row(
         modifier
             .fillMaxWidth()
             .aspectRatio(aspectRatio)
-            .background(Color.White),
+            .background(Color.White)
     ) {
         Row(
             modifier
@@ -284,7 +288,7 @@ fun MainBottomBar(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewExampleScreen1() {
+private fun PreviewExampleScreen1() {
     val navController = TestNavHostController(LocalContext.current)
-    MainScreen(navController = navController)
+//    MainScreen(navController = navController)
 }
