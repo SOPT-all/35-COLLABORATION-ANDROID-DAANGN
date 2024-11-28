@@ -29,6 +29,7 @@ import org.sopt.carrot.core.common.ViewModelFactory
 import org.sopt.carrot.data.model.SearchProductModel
 import org.sopt.carrot.domain.model.SearchModel
 import org.sopt.carrot.presentation.ScreenRoutes
+import org.sopt.carrot.presentation.titleSearchScreen.components.product.LoadingIndicator
 import org.sopt.carrot.presentation.titleSearchScreen.components.product.ProductResultContent
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchFilterLayout
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchKeywordLayout
@@ -60,7 +61,7 @@ fun TitleSearchScreen(navController: NavHostController) {
                     searchQuery = it
                 },
                 onSearch = { viewModel.searchProducts(searchQuery) },
-                onBackClick = {  }
+                onBackClick = { }
             )
         }
 
@@ -70,9 +71,7 @@ fun TitleSearchScreen(navController: NavHostController) {
 
         when (searchState) {
             is UiState.Loading -> {
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
+                LoadingIndicator()
             }
 
             is UiState.Success -> {
