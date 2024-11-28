@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import org.sopt.carrot.core.common.ViewModelFactory
-import org.sopt.carrot.domain.model.Search
 import org.sopt.carrot.presentation.ScreenRoutes
 import org.sopt.carrot.presentation.titleSearchScreen.components.product.EmptyResultMessage
 import org.sopt.carrot.presentation.titleSearchScreen.components.product.ErrorContent
@@ -56,18 +55,15 @@ fun TitleSearchScreen(navController: NavHostController) {
             )
         }
 
-        SearchTabs()
-        SearchKeywordLayout()
-        HorizontalDivider(thickness = 8.dp, color = CarrotTheme.colors.gray2)
-
-        when (searchState) {
+        when (val search = searchState) {
             is UiState.Loading -> {
                 LoadingIndicator()
             }
 
             is UiState.Success -> {
-                val search = (searchState as UiState.Success<Search>).data
-
+                SearchTabs()
+                SearchKeywordLayout()
+                HorizontalDivider(thickness = 8.dp, color = CarrotTheme.colors.gray2)
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -79,7 +75,7 @@ fun TitleSearchScreen(navController: NavHostController) {
                 }
 
                 ProductResultContent(
-                    search = search,
+                    search = search.data,
                     searchQuery = searchQuery,
                     onProductClick = { productId, userId ->
                         navController.navigate("${ScreenRoutes.PRODUCT_DETAIL}/$productId/$userId")

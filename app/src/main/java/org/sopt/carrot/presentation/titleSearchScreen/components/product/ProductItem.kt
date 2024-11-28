@@ -18,30 +18,29 @@ fun ProductItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val id = when(product) {
-        is SearchProduct -> product.id
-        is SearchSimilarProduct -> product.id
-        else -> return
-    }
-    val title = when(product) {
-        is SearchProduct -> product.title
-        is SearchSimilarProduct -> product.title
-        else -> return
-    }
-    val productImage = when(product) {
-        is SearchProduct -> product.productImage
-        is SearchSimilarProduct -> product.productImage
-        else -> return
-    }
-    val address = when(product) {
-        is SearchProduct -> product.address
-        is SearchSimilarProduct -> product.address
-        else -> return
-    }
-    val price = when(product) {
-        is SearchProduct -> product.price
-        is SearchSimilarProduct -> product.price
-        else -> return
+    val id:Long
+    val title: String?
+    val productImage: String
+    val address: String?
+    val price: String
+    when(product) {
+        is SearchProduct -> {
+            id = product.id
+            title = product.title
+            productImage = product.productImage
+            address = product.address
+            price = product.price
+        }
+
+        is SearchSimilarProduct -> {
+            id = product.id
+            title = product.title
+            productImage = product.productImage
+            address = product.address
+            price = product.price
+        }
+
+        else -> throw IllegalArgumentException("괴롭히지마!!!!!")
     }
     Column(
         modifier = modifier
