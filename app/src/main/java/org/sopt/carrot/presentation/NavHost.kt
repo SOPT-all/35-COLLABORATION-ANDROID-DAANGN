@@ -10,6 +10,7 @@ import org.sopt.carrot.presentation.ExampleScreen2.ExampleScreen2
 import org.sopt.carrot.presentation.titleSearchScreen.TitleSearchScreen
 import org.sopt.carrot.presentation.category.CategoryScreen
 import org.sopt.carrot.presentation.sellerProfile.SellerProfileScreen
+import org.sopt.carrot.presentation.productDetailScreen.ProductDetailScreen
 
 @Composable
 fun AppNavHost(navController: NavHostController, modifier: Modifier = Modifier) {
@@ -22,10 +23,12 @@ fun AppNavHost(navController: NavHostController, modifier: Modifier = Modifier) 
             TitleSearchScreen(
                 onBackClick = { navController.popBackStack() },
                 onProductClick = { productId ->
-                    navController.navigate(ScreenRoutes.EXAMPLE_SCREEN_2)
+                    navController.navigate(ScreenRoutes.PRODUCT_DETAIL)
                 }
             )
         }
+        composable(ScreenRoutes.PRODUCT_DETAIL) { ProductDetailScreen(navController) }
+
         composable(ScreenRoutes.EXAMPLE_SCREEN_1) { ExampleScreen1(navController) }
         composable(ScreenRoutes.EXAMPLE_SCREEN_2) { ExampleScreen2(navController) }
 
