@@ -6,10 +6,10 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ResponseRelatedProductsDto(
     @SerialName("products")
-    val products: List<ResponseRelatedProduct>
+    val products: List<RelatedProduct>
 ) {
     @Serializable
-    data class ResponseRelatedProduct(
+    data class RelatedProduct(
         @SerialName("id")
         val id: Long,
         @SerialName("productImage")
