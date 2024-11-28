@@ -1,6 +1,5 @@
 package org.sopt.carrot.data.service
 
-import org.sopt.carrot.data.model.response.SearchResponse
 import org.sopt.carrot.data.model.response.BaseResponse
 import org.sopt.carrot.data.model.response.ResponseProductInfoDto
 import org.sopt.carrot.data.model.response.ResponseRelatedProductsDto
