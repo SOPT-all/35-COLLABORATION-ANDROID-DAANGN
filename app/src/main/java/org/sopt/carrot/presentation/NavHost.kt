@@ -8,31 +8,40 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import androidx.navigation.navArgument
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.sopt.carrot.presentation.ExampleScreen1.ExampleScreen1
 import org.sopt.carrot.presentation.ExampleScreen2.ExampleScreen2
 import org.sopt.carrot.presentation.titleSearchScreen.TitleSearchScreen
 import org.sopt.carrot.presentation.category.CategoryScreen
-import org.sopt.carrot.presentation.sellerProfile.SellerProfileScreen
+import org.sopt.carrot.presentation.main.MainScreen
 import org.sopt.carrot.presentation.productDetailScreen.ProductDetailScreen
+import org.sopt.carrot.presentation.sellerProfile.SellerProfileScreen
+import org.sopt.carrot.presentation.titleSearchScreen.TitleSearchScreen
 
 @Composable
 fun AppNavHost(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
-        startDestination = "example_screen_1",
+        startDestination = ScreenRoutes.MAIN_SCREEN,
         modifier = modifier
     ) {
         composable(ScreenRoutes.TITLE_SEARCH) {
-            TitleSearchScreen(
-                onBackClick = { navController.popBackStack() },
-                onProductClick = { productId ->
-                    navController.navigate(ScreenRoutes.PRODUCT_DETAIL)
-                }
+            TitleSearchScreen(navController)
+        }
+        composable(
+            route = ScreenRoutes.PRODUCT_DETAIL_WITH_ARGS,
+            arguments = listOf(
+                navArgument("productId") { type = NavType.LongType },
+                navArgument("userId") { type = NavType.LongType }
             )
+        ) {
+            ProductDetailScreen(navController)
         }
         composable(ScreenRoutes.PRODUCT_DETAIL) { ProductDetailScreen(navController) }
+        composable(ScreenRoutes.MAIN_SCREEN) { MainScreen(navController) }
+        composable(ScreenRoutes.CATEGORY_SCREEN) {
 
         composable(ScreenRoutes.EXAMPLE_SCREEN_1) { ExampleScreen1(navController) }
         composable(ScreenRoutes.EXAMPLE_SCREEN_2) { ExampleScreen2(navController) }
@@ -58,10 +67,7 @@ fun AppNavHost(navController: NavHostController, modifier: Modifier = Modifier) 
         composable(route = ScreenRoutes.CATEGORY_SCREEN) {
             CategoryScreen(
                 onBackClick = { navController.popBackStack() },
-                navigateToHome = { selectedCategories ->
-                    val json = Json.encodeToString(selectedCategories)
-                    navController.navigate("${ScreenRoutes.EXAMPLE_SCREEN_2}/${Uri.encode(json)}")
-                }
+                navigateToHome = { navController.navigate(ScreenRoutes.EXAMPLE_SCREEN_2) }
             )
         }
 

@@ -24,6 +24,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.carrot.R
+import org.sopt.carrot.core.extension.noRippleClickable
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 private data class FilterItem(
@@ -43,18 +44,18 @@ fun SearchFilterLayout(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = 12.dp),
         color = CarrotTheme.colors.white
     ) {
         LazyRow(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(filterItems) { item ->
                 FilterChip(
                     text = item.text,
-                    onClick = { /* TODO */ },
                     modifier = if (item.isFullWidth) {
                         Modifier.width(IntrinsicSize.Max)
                     } else {
@@ -69,15 +70,13 @@ fun SearchFilterLayout(
 @Composable
 private fun FilterChip(
     text: String,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Surface(
-        onClick = onClick,
         shape = RoundedCornerShape(50.dp),
         border = BorderStroke(1.dp, color = CarrotTheme.colors.gray3),
         color = CarrotTheme.colors.white,
-        modifier = modifier
+        modifier = modifier.noRippleClickable { }
     ) {
         Row(
             modifier = Modifier.padding(start = 11.dp, end = 11.dp, top = 8.dp, bottom = 8.dp),
@@ -97,5 +96,3 @@ private fun FilterChip(
         }
     }
 }
-
-

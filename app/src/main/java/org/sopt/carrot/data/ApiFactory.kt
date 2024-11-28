@@ -14,6 +14,7 @@ import org.sopt.carrot.core.extension.isJsonObject
 import org.sopt.carrot.data.service.CategoryService
 import org.sopt.carrot.data.service.DummyService
 import retrofit2.Converter
+import org.sopt.carrot.data.service.SearchService
 import retrofit2.Retrofit
 import timber.log.Timber
 
@@ -58,5 +59,6 @@ object ApiFactory {
 
 object ServicePool {
     val dummyService by lazy { ApiFactory.create<DummyService>() }
+    val searchService by lazy { ApiFactory.create<SearchService>() }
     val categoryService by lazy { ApiFactory.create<CategoryService>() }
 }
