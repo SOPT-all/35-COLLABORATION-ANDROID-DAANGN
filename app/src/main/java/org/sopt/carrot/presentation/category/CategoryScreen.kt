@@ -8,12 +8,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.sopt.carrot.R
+import org.sopt.carrot.core.common.ViewModelFactory
 import org.sopt.carrot.presentation.category.component.CategoryBottomBar
 import org.sopt.carrot.presentation.category.component.CategoryTopBar
 import org.sopt.carrot.presentation.category.component.section.CategorySelection
@@ -23,10 +25,15 @@ import org.sopt.carrot.ui.theme.CarrotTheme
 @Composable
 fun CategoryScreen(
     onBackClick: () -> Unit = {},
-    navigateToHome: () -> Unit = {},
-    viewmodel: CategoryViewmodel = viewModel(),
+    navigateToHome: (List<String>) -> Unit = {},
+    viewmodel: CategoryViewmodel = viewModel(factory = ViewModelFactory()),
 ) {
-    val categories = viewmodel.categorySelections
+    LaunchedEffect(Unit) {
+        viewmodel.fetchCategory()
+    }
+
+    val categories = viewmodel.categories
+    val selectedCategories = viewmodel.selectedCategories
 
     Scaffold(
         topBar = {
@@ -38,10 +45,7 @@ fun CategoryScreen(
             CategoryBottomBar(
                 isEnabled = viewmodel.check(),
                 onClearSelectedCategories = { viewmodel.clearSelectedCategories() },
-                onApplyCategories = {
-                    // TODO 서버 전달 추가 예정
-                    navigateToHome()
-                }
+                onApplyCategories = { navigateToHome(selectedCategories) }
             )
         },
         containerColor = CarrotTheme.colors.white,
