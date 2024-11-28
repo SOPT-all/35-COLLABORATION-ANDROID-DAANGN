@@ -1,11 +1,12 @@
 package org.sopt.carrot.data.mapper
 
-import org.sopt.carrot.data.model.SearchProductModel
-import org.sopt.carrot.data.model.response.ResponseSearchDto
-import org.sopt.carrot.domain.model.SearchModel
+import org.sopt.carrot.data.model.response.Product
+import org.sopt.carrot.data.model.response.SimilarProduct
+import org.sopt.carrot.domain.model.SearchProduct
+import org.sopt.carrot.domain.model.SearchSimilarProduct
 
-object SearchMapper {
-    fun ResponseSearchDto.Product.toSearchProductModel() = SearchProductModel(
+internal fun Product.toSearchProduct(): SearchProduct =
+    SearchProduct(
         id = id,
         userId = userId,
         productImage = productImage,
@@ -13,4 +14,13 @@ object SearchMapper {
         address = address,
         price = price
     )
-}
+
+internal fun SimilarProduct.toSearchSimilarProduct(): SearchSimilarProduct =
+    SearchSimilarProduct(
+        id = id,
+        userId = userId,
+        productImage = productImage,
+        title = title,
+        address = address,
+        price = price
+    )

@@ -21,8 +21,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import org.sopt.carrot.R
 import org.sopt.carrot.core.common.ViewModelFactory
-import org.sopt.carrot.domain.model.SearchModel
+import org.sopt.carrot.domain.model.Search
 import org.sopt.carrot.presentation.ScreenRoutes
+import org.sopt.carrot.presentation.titleSearchScreen.components.product.EmptyResultMessage
+import org.sopt.carrot.presentation.titleSearchScreen.components.product.ErrorContent
 import org.sopt.carrot.presentation.titleSearchScreen.components.product.LoadingIndicator
 import org.sopt.carrot.presentation.titleSearchScreen.components.product.ProductResultContent
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchFilterLayout
@@ -68,7 +70,7 @@ fun TitleSearchScreen(navController: NavHostController) {
             }
 
             is UiState.Success -> {
-                val (products, similarProducts) = (searchState as UiState.Success<Pair<List<SearchModel>, List<SearchModel>>>).data
+                val search = (searchState as UiState.Success<Search>).data
 
                 Column(
                     modifier = Modifier
@@ -81,8 +83,7 @@ fun TitleSearchScreen(navController: NavHostController) {
                 }
 
                 ProductResultContent(
-                    products = products,
-                    similarProducts = similarProducts,
+                    search = search,
                     searchQuery = searchQuery,
                     onProductClick = { productId, userId ->
                         navController.navigate("${ScreenRoutes.PRODUCT_DETAIL}/$productId/$userId")
@@ -91,22 +92,11 @@ fun TitleSearchScreen(navController: NavHostController) {
             }
 
             is UiState.Empty -> {
-                ProductResultContent(
-                    products = emptyList(),
-                    similarProducts = emptyList(),
-                    searchQuery = searchQuery,
-                    onProductClick = { productId, userId ->
-                        navController.navigate("${ScreenRoutes.PRODUCT_DETAIL}/$productId/$userId")
-                    }
-                )
+                EmptyResultMessage()
             }
 
             is UiState.Error -> {
-                Text(
-                    text = (searchState as UiState.Error).message ?: stringResource(R.string.search_screen_error),
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    style = CarrotTheme.typography.body.md_15
-                )
+                ErrorContent()
             }
         }
     }

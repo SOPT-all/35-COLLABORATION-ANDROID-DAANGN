@@ -16,6 +16,7 @@ class ViewModelFactory : ViewModelProvider.Factory {
             ExampleScreen1ViewModel::class.java -> {
                 ExampleScreen1ViewModel(DummyRepositoryImpl(ServicePool.dummyService)) as T
             }
+
             SearchViewModel::class.java -> {
                 SearchViewModel(SearchRepositoryImpl(ServicePool.searchService)) as T
             }

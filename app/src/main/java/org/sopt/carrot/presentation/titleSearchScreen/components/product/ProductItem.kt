@@ -9,14 +9,41 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.sopt.carrot.core.extension.noRippleClickable
-import org.sopt.carrot.domain.model.SearchModel
+import org.sopt.carrot.domain.model.Search
+import org.sopt.carrot.domain.model.SearchProduct
+import org.sopt.carrot.domain.model.SearchSimilarProduct
 
 @Composable
 fun ProductItem(
-    product: SearchModel,
+    product: Any,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val id = when(product) {
+        is SearchProduct -> product.id
+        is SearchSimilarProduct -> product.id
+        else -> return
+    }
+    val title = when(product) {
+        is SearchProduct -> product.title
+        is SearchSimilarProduct -> product.title
+        else -> return
+    }
+    val productImage = when(product) {
+        is SearchProduct -> product.productImage
+        is SearchSimilarProduct -> product.productImage
+        else -> return
+    }
+    val address = when(product) {
+        is SearchProduct -> product.address
+        is SearchSimilarProduct -> product.address
+        else -> return
+    }
+    val price = when(product) {
+        is SearchProduct -> product.price
+        is SearchSimilarProduct -> product.price
+        else -> return
+    }
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -28,7 +55,7 @@ fun ProductItem(
             horizontalArrangement = Arrangement.spacedBy(17.dp)
         ) {
             ProductImage(
-                imageUrl = product.productImage
+                imageUrl = productImage
             )
             Column(
                 modifier = Modifier
@@ -37,12 +64,12 @@ fun ProductItem(
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 ProductInfo(
-                    title = product.title,
-                    address = product.address,
-                    price = product.price
+                    title = title,
+                    address = address,
+                    price = price
                 )
                 ProductLikeButton(
-                    likeCount = product.id.toString(),
+                    likeCount = id.toString(),
                 )
             }
         }

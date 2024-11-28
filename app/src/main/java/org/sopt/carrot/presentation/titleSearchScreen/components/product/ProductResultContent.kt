@@ -15,15 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import org.sopt.carrot.R
-import org.sopt.carrot.domain.model.SearchModel
+import org.sopt.carrot.domain.model.Search
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchScreenToggle
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 
 @Composable
 fun ProductResultContent(
-    products: List<SearchModel>,
-    similarProducts: List<SearchModel>,
+    search: Search,
     searchQuery: String,
     onProductClick: (Long, Long) -> Unit,
     modifier: Modifier = Modifier
@@ -34,7 +33,7 @@ fun ProductResultContent(
             .background(CarrotTheme.colors.white)
     ) {
         // 메인 상품 리스트
-        if (products.isNotEmpty()) {
+        if (search.products.isNotEmpty()) {
             item {
                 Row(
                     modifier = Modifier
@@ -45,7 +44,7 @@ fun ProductResultContent(
                 }
             }
             itemsIndexed(
-                items = products,
+                items = search.products,
                 key = { _, item -> item.id }
             ) { index, product ->
                 Column(Modifier.padding(horizontal = 16.dp)) {
@@ -53,7 +52,7 @@ fun ProductResultContent(
                         product = product,
                         onClick = { onProductClick(product.id, product.userId) }
                     )
-                    if (index < products.size - 1) {
+                    if (index < search.products.size - 1) {
                         HorizontalDivider(
                             color = CarrotTheme.colors.gray2,
                             thickness = 1.dp
@@ -64,7 +63,7 @@ fun ProductResultContent(
         }
 
         // 유사 상품 섹션
-        if (similarProducts.isNotEmpty()) {
+        if (search.similarProducts.isNotEmpty()) {
             item {
                 HorizontalDivider(
                     modifier = Modifier.fillMaxWidth(),
@@ -80,7 +79,7 @@ fun ProductResultContent(
             }
 
             itemsIndexed(
-                items = similarProducts,
+                items = search.similarProducts,
                 key = { _, item -> item.id }
             ) { index, product ->
                 Column(Modifier.padding(horizontal = 16.dp)) {
@@ -88,7 +87,7 @@ fun ProductResultContent(
                         product = product,
                         onClick = { onProductClick(product.id, product.userId) }
                     )
-                    if (index < similarProducts.size - 1) {
+                    if (index < search.similarProducts.size - 1) {
                         HorizontalDivider(
                             thickness = 1.dp,
                             color = CarrotTheme.colors.gray2
@@ -99,7 +98,7 @@ fun ProductResultContent(
         }
 
         // 빈 결과
-        if (products.isEmpty() && similarProducts.isEmpty()) {
+        if (search.products.isEmpty() && search.similarProducts.isEmpty()) {
             item {
                 Column(Modifier.padding(horizontal = 16.dp)) {
                     EmptyResultMessage()
