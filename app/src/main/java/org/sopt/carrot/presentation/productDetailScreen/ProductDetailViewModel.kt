@@ -1,111 +1,42 @@
 package org.sopt.carrot.presentation.productDetailScreen
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import org.sopt.carrot.data.model.response.ResponseProductInfoDto
-import org.sopt.carrot.data.model.response.ResponseRelatedProductDto
-import org.sopt.carrot.data.model.response.ResponseUserInfoDto
-import org.sopt.carrot.presentation.productDetailScreen.model.ProductDetailUiState
-import org.sopt.carrot.presentation.productDetailScreen.model.UiProductInfoDto
-import org.sopt.carrot.presentation.productDetailScreen.model.UiRelatedProductDto
-import org.sopt.carrot.presentation.productDetailScreen.model.UiUserInfoDto
+import kotlinx.coroutines.launch
+import org.sopt.carrot.domain.model.ProductDetailModel
+import org.sopt.carrot.domain.model.RelatedProductModel
+import org.sopt.carrot.domain.model.UserDetailModel
+import org.sopt.carrot.domain.repository.ProductDetailRepository
+import org.sopt.carrot.presentation.util.UiState
 
-class ProductDetailViewModel : ViewModel() {
-    private val _uiState = MutableStateFlow<ProductDetailUiState>(ProductDetailUiState.Loading)
-    val uiState: StateFlow<ProductDetailUiState> = _uiState.asStateFlow()
+class ProductDetailViewModel(
+    private val repository: ProductDetailRepository
+) : ViewModel() {
+    private val _uiState = MutableStateFlow<UiState<DetailState>>(UiState.Loading)
+    val uiState: StateFlow<UiState<DetailState>> = _uiState.asStateFlow()
 
-    init {
-        fetchProductDetail()
-    }
+    data class DetailState(
+        val productInfo: ProductDetailModel,
+        val userInfo: UserDetailModel,
+        val relatedProducts: List<RelatedProductModel>
+    )
 
-    private fun fetchProductDetail() {
-        // Mock data for now
-        val mockUserInfo = ResponseUserInfoDto(
-            userId = 1,
-            nickname = "뷰모델",
-            profileImage = "",
-            address = "송파구 삼정동"
-        )
+    fun fetchProductDetail(productId: Long, userId: Long) {
+        viewModelScope.launch {
+            _uiState.value = UiState.Loading
+            try {
+                val productInfo = repository.getProductInfo(productId).getOrThrow()
+                val userInfo = repository.getUserInfo(userId).getOrThrow()
+                val relatedProducts = repository.getSellingProducts(userId).getOrThrow()
 
-        val mockProductInfo = ResponseProductInfoDto(
-            productId = 1,
-            productImage = "",
-            title = "렉토 맨투맨",
-            category = "여성 의류",
-            content = "이거 뷰모델에 넣어놓은 데이터임\n줄줄이 적어도 잘 나옴\n후후후",
-            price = "10,000",
-            view = 5
-        )
-
-        val mockRelatedProducts = listOf(
-            ResponseRelatedProductDto(
-                id = 1,
-                productImage = "~~~~",
-                title = "이거 뷰모델에 있는거임, 그 유저가 파는 상품 보여줌",
-                price = "24,000"
-            ),
-            ResponseRelatedProductDto(
-                id = 2,
-                productImage = "~~~~",
-                title = "이거 뷰모델에 있는거임, 그 유저가 파는 상품 보여줌",
-                price = "24,000"
-            ),
-            ResponseRelatedProductDto(
-                id = 3,
-                productImage = "~~~~",
-                title = "이거 뷰모델에 있는거임, 그 유저가 파는 상품 보여줌",
-                price = "24,000"
-            ),
-            ResponseRelatedProductDto(
-                id = 4,
-                productImage = "~~~~",
-                title = "이거 뷰모델에 있는거임, 그 유저가 파는 상품 보여줌",
-                price = "24,000"
-            )
-        )
-
-        updateUiState(
-            mockUserInfo.toUiState(),
-            mockProductInfo.toUiState(),
-            mockRelatedProducts.map { it.toUiState() }
-        )
-    }
-
-    private fun updateUiState(
-        userInfo: UiUserInfoDto,
-        productInfo: UiProductInfoDto,
-        relatedProducts: List<UiRelatedProductDto>
-    ) {
-        _uiState.update {
-            ProductDetailUiState.Success(
-                userInfo = userInfo,
-                productInfo = productInfo,
-                relatedProducts = relatedProducts
-            )
+                _uiState.value = UiState.Success(DetailState(productInfo, userInfo, relatedProducts))
+            } catch (e: Exception) {
+                e.printStackTrace()  // 로그 추가
+                _uiState.value = UiState.Error(e.message)
+            }
         }
     }
 }
-
-private fun ResponseUserInfoDto.toUiState() = UiUserInfoDto(
-    nickname = nickname,
-    profileImage = profileImage,
-    address = address
-)
-
-private fun ResponseProductInfoDto.toUiState() = UiProductInfoDto(
-    productImage = productImage,
-    title = title,
-    category = category,
-    content = content,
-    price = price,
-    view = view
-)
-
-private fun ResponseRelatedProductDto.toUiState() = UiRelatedProductDto(
-    productImage = productImage,
-    title = title,
-    price = price
-)

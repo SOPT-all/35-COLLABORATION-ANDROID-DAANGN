@@ -13,10 +13,10 @@ data class ResponseRelatedProductsDto(
 data class ResponseRelatedProductDto(
     @SerialName("id")
     val id: Long,
-    @SerialName("productImage")
+    @SerialName("product_image")
     val productImage: String,
     @SerialName("title")
-    val title: String,
+    val title: String? = null,
     @SerialName("price")
     val price: String
 )
