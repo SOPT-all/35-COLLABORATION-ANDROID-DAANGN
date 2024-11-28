@@ -1,6 +1,5 @@
 package org.sopt.carrot.presentation.titleSearchScreen
 
-import android.widget.Space
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Divider
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -19,7 +17,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.sopt.carrot.R
 import org.sopt.carrot.data.model.response.Product
 import org.sopt.carrot.presentation.titleSearchScreen.components.product.ProductResultContent
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchFilterLayout
@@ -92,7 +89,7 @@ private val sampleProducts = listOf(
     Product(
         id = 1,
         user_id = 1,
-        product_image = R.drawable.img_emu_top.toString(),
+        product_image = "https://ibb.co/s1y6Nyj",
         title = "맨투맨",
         address = "방이동",
         price = "210,000"
@@ -100,7 +97,7 @@ private val sampleProducts = listOf(
     Product(
         id = 2,
         user_id = 2,
-        product_image = R.drawable.img_emu_top.toString(),
+        product_image = "https://ibb.co/s1y6Nyj",
         title = "레더 맨투맨",
         address = "송파구 잠실동",
         price = "168,000"
@@ -108,7 +105,7 @@ private val sampleProducts = listOf(
     Product(
         id = 4,
         user_id = 2,
-        product_image = R.drawable.img_emu_top.toString(),
+        product_image = "https://ibb.co/s1y6Nyj",
         title = "레더 맨투맨",
         address = "송파구 잠실동",
         price = "168,000"
@@ -116,7 +113,7 @@ private val sampleProducts = listOf(
     Product(
         id = 5,
         user_id = 2,
-        product_image = R.drawable.img_emu_top.toString(),
+        product_image = "https://ibb.co/s1y6Nyj",
         title = "레더 맨투맨",
         address = "송파구 잠실동",
         price = "168,000"
@@ -124,7 +121,7 @@ private val sampleProducts = listOf(
     Product(
         id = 6,
         user_id = 2,
-        product_image = R.drawable.img_emu_top.toString(),
+        product_image = "https://ibb.co/s1y6Nyj",
         title = "레더 맨투맨",
         address = "송파구 잠실동",
         price = "168,000"
@@ -135,7 +132,7 @@ private val sampleSimilarProducts = listOf(
     Product(
         id = 3,
         user_id = 3,
-        product_image = R.drawable.img_emu_top.toString(),
+        product_image = "https://ibb.co/s1y6Nyj",
         title = "DKNY 맨투맨",
         address = "방이동",
         price = "40,000"
