@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
@@ -23,6 +24,7 @@ import org.sopt.carrot.ui.theme.CarrotTheme
 fun LocationSection() {
     Column(
         modifier = Modifier
+            .fillMaxWidth()
             .background(CarrotTheme.colors.gray2)
             .padding(vertical = 24.dp)
             .padding(start = 14.dp, end = 50.dp),
