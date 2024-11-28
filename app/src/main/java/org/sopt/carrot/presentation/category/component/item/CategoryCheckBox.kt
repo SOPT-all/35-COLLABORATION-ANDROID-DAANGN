@@ -29,10 +29,11 @@ fun CategoryCheckBox(
     onCheckedChange: () -> Unit
 ) {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(13.dp, Alignment.Start),
         modifier = Modifier
             .height(22.dp)
-            .noRippleClickable { onCheckedChange() }
+            .noRippleClickable { onCheckedChange() },
+        horizontalArrangement = Arrangement.spacedBy(13.dp, Alignment.Start),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             imageVector = when (checked) {
@@ -44,8 +45,8 @@ fun CategoryCheckBox(
         )
         Text(
             text = title,
+            color = CarrotTheme.colors.gray8,
             style = CarrotTheme.typography.body.sb_17_08,
-            modifier = Modifier.fillMaxHeight()
         )
     }
 }

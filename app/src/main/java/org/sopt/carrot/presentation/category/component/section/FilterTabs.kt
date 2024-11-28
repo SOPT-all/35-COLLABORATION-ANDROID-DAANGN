@@ -9,19 +9,17 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import okhttp3.internal.toImmutableList
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 @Composable
-fun FilterTabs() {
-    val selectedIndex by remember { mutableIntStateOf(2) }
-    val tabs = listOf("동네거리", "가격", "카테고리", "정확도순").toImmutableList()
+fun FilterTabs(
+    selectedIndex: Int,
+    onTabSelected: (Int) -> Unit
+) {
+    val tabs = listOf("동네거리", "가격", "카테고리", "정확도순")
 
     TabRow(
         selectedTabIndex = selectedIndex,
@@ -45,7 +43,7 @@ fun FilterTabs() {
             tabs.forEachIndexed { index, tab ->
                 Tab(
                     selected = selectedIndex == index,
-                    onClick = {},
+                    onClick = { onTabSelected(index) },
                     modifier = Modifier
                         .wrapContentWidth()
                         .padding(horizontal = 10.dp),
@@ -66,5 +64,8 @@ fun FilterTabs() {
 @Preview
 @Composable
 private fun PreviewFilterTabSection() {
-    FilterTabs()
+    FilterTabs(
+        selectedIndex = 2,
+        onTabSelected = {}
+    )
 }
