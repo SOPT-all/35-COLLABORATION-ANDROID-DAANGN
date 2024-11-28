@@ -1,11 +1,11 @@
 package org.sopt.carrot.data.repositoryimpl
 
 import org.sopt.carrot.data.mapper.toModel
-import org.sopt.carrot.data.service.ProductApiService
+import org.sopt.carrot.data.service.ProductService
 import org.sopt.carrot.domain.repository.ProductDetailRepository
 
 class ProductDetailRepositoryImpl(
-    private val productService: ProductApiService,
+    private val productService: ProductService,
 ) : ProductDetailRepository {
     override suspend fun getProductInfo(productId: Long) = runCatching {
         val response = productService.getProductDetail(productId)

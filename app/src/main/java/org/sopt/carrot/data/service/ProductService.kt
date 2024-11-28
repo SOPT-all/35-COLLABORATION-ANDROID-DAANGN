@@ -6,7 +6,7 @@ import org.sopt.carrot.data.model.response.ResponseRelatedProductsDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface ProductApiService {
+interface ProductService {
     @GET("/api/products/{productId}")
     suspend fun getProductDetail(
         @Path("productId") productId: Long

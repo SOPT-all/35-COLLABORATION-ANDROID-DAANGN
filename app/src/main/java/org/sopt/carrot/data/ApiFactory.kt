@@ -7,7 +7,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.sopt.carrot.BuildConfig
 import org.sopt.carrot.data.service.DummyService
-import org.sopt.carrot.data.service.ProductApiService
+import org.sopt.carrot.data.service.ProductService
 import org.sopt.carrot.data.service.SearchService
 import org.sopt.carrot.data.service.UserService
 import retrofit2.Retrofit
@@ -37,6 +37,6 @@ object ApiFactory {
 object ServicePool {
     val dummyService by lazy { ApiFactory.create<DummyService>() }
     val searchService by lazy { ApiFactory.create<SearchService>() }
-    val productService by lazy { ApiFactory.create<ProductApiService>() }
+    val productService by lazy { ApiFactory.create<ProductService>() }
     val userService by lazy { ApiFactory.create<UserService>() }
 }
