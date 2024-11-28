@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import org.sopt.carrot.R
 import org.sopt.carrot.domain.model.Search
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchScreenToggle
+import org.sopt.carrot.data.model.response.Product
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 

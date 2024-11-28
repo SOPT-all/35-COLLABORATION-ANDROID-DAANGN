@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.sopt.carrot.core.extension.noRippleClickable
-import org.sopt.carrot.domain.model.Search
 import org.sopt.carrot.domain.model.SearchProduct
 import org.sopt.carrot.domain.model.SearchSimilarProduct
 

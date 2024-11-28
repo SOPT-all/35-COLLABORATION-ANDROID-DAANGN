@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import org.sopt.carrot.data.model.response.Product
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import org.sopt.carrot.R
@@ -31,6 +32,7 @@ import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchFi
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchKeywordLayout
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchTabs
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchTopBar
+import org.sopt.carrot.presentation.util.UiState
 import org.sopt.carrot.presentation.util.UiState
 import org.sopt.carrot.ui.theme.CarrotTheme
 
