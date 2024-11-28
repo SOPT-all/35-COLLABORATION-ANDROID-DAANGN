@@ -25,8 +25,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
@@ -194,10 +196,11 @@ fun SellerProfileSection(
                         color = CarrotTheme.colors.orange2,
                         style = CarrotTheme.typography.body.b_18_144
                     )
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_check_28),
+                    Image(
+                        painter = painterResource(R.drawable.img_smile),
                         contentDescription = null,
-                        tint = Color.Unspecified
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.padding(start = 3.dp)
                     )
                 }
             }
