@@ -3,8 +3,10 @@ package org.sopt.carrot.presentation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import org.sopt.carrot.presentation.category.CategoryScreen
 import org.sopt.carrot.presentation.main.MainScreen
 import org.sopt.carrot.presentation.productDetailScreen.ProductDetailScreen
@@ -19,12 +21,16 @@ fun AppNavHost(navController: NavHostController, modifier: Modifier = Modifier) 
         modifier = modifier
     ) {
         composable(ScreenRoutes.TITLE_SEARCH) {
-            TitleSearchScreen(
-                onBackClick = { navController.popBackStack() },
-                onProductClick = { productId ->
-                    navController.navigate(ScreenRoutes.PRODUCT_DETAIL)
-                }
+            TitleSearchScreen(navController)
+        }
+        composable(
+            route = ScreenRoutes.PRODUCT_DETAIL_WITH_ARGS,
+            arguments = listOf(
+                navArgument("productId") { type = NavType.LongType },
+                navArgument("userId") { type = NavType.LongType }
             )
+        ) {
+            ProductDetailScreen(navController)
         }
         composable(ScreenRoutes.PRODUCT_DETAIL) { ProductDetailScreen(navController) }
         composable(ScreenRoutes.MAIN_SCREEN) { MainScreen(navController) }

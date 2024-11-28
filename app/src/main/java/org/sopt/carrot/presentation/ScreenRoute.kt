@@ -8,4 +8,5 @@ object ScreenRoutes {
     const val MAIN_SCREEN = "main_screen"
     const val SELLER_PROFILE_SCREEN = "seller_profile_screen"
     const val PRODUCT_DETAIL = "product_detail"
+    const val PRODUCT_DETAIL_WITH_ARGS = "$PRODUCT_DETAIL/{productId}/{userId}"
 }

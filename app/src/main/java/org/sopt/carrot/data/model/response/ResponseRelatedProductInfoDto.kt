@@ -6,17 +6,19 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ResponseRelatedProductsDto(
     @SerialName("products")
-    val products: List<ResponseRelatedProductDto>
-)
+    val products: List<RelatedProduct>
+) {
+    @Serializable
+    data class RelatedProduct(
+        @SerialName("id")
+        val id: Long,
+        @SerialName("productImage")
+        val productImage: String,
+        @SerialName("title")
+        val title: String,
+        @SerialName("price")
+        val price: String
+    )
+}
 
-@Serializable
-data class ResponseRelatedProductDto(
-    @SerialName("id")
-    val id: Long,
-    @SerialName("productImage")
-    val productImage: String,
-    @SerialName("title")
-    val title: String,
-    @SerialName("price")
-    val price: String
-)
+
