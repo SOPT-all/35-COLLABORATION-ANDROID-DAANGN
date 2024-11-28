@@ -41,6 +41,7 @@ import org.sopt.carrot.presentation.main.component.MainFloatingButton
 import org.sopt.carrot.presentation.main.component.ProductList
 import org.sopt.carrot.presentation.main.component.TagChipButton
 import org.sopt.carrot.ui.theme.CarrotTheme
+import timber.log.Timber
 
 
 @Composable
@@ -50,6 +51,10 @@ fun MainScreen(
     val listState = rememberLazyListState()
     val viewModel = MainViewModel()
     val products = viewModel.products.value
+
+    val savedStateHandle = navController.previousBackStackEntry?.savedStateHandle
+    val selectedCategories = savedStateHandle?.get<List<String>>("selectedCategories") ?: emptyList()
+    Timber.d("$selectedCategories")
 
     Box(
         modifier = Modifier
