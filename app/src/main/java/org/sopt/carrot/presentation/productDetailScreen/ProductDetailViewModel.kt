@@ -10,10 +10,12 @@ import org.sopt.carrot.domain.model.ProductDetailModel
 import org.sopt.carrot.domain.model.RelatedProductModel
 import org.sopt.carrot.domain.model.UserDetailModel
 import org.sopt.carrot.domain.repository.ProductDetailRepository
+import org.sopt.carrot.domain.repository.UserRepository
 import org.sopt.carrot.presentation.util.UiState
 
 class ProductDetailViewModel(
-    private val repository: ProductDetailRepository
+    private val productRepository: ProductDetailRepository,
+    private val userRepository: UserRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<UiState<DetailState>>(UiState.Loading)
     val uiState: StateFlow<UiState<DetailState>> = _uiState.asStateFlow()
@@ -28,9 +30,9 @@ class ProductDetailViewModel(
         viewModelScope.launch {
             _uiState.value = UiState.Loading
             try {
-                val productInfo = repository.getProductInfo(productId).getOrThrow()
-                val userInfo = repository.getUserInfo(userId).getOrThrow()
-                val relatedProducts = repository.getSellingProducts(userId).getOrThrow()
+                val productInfo = productRepository.getProductInfo(productId).getOrThrow()
+                val userInfo = userRepository.getUserInfo(userId).getOrThrow()
+                val relatedProducts = productRepository.getSellingProducts(userId).getOrThrow()
 
                 _uiState.value = UiState.Success(DetailState(productInfo, userInfo, relatedProducts))
             } catch (e: Exception) {

@@ -1,3 +1,5 @@
+package org.sopt.carrot.data.repositoryimpl
+
 import org.sopt.carrot.data.service.ProductApiService
 import org.sopt.carrot.data.service.UserService
 import org.sopt.carrot.domain.repository.ProductDetailRepository
