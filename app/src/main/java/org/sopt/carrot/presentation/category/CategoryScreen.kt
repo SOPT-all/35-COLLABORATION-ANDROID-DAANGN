@@ -1,5 +1,6 @@
 package org.sopt.carrot.presentation.category
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,6 +10,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -67,6 +73,8 @@ private fun CategoryContent(
     categories: Map<String, Boolean>,
     onCheckedChange: (String) -> Unit,
 ) {
+    var selectedTabIndex by remember { mutableIntStateOf(2) }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -80,12 +88,31 @@ private fun CategoryContent(
 
         Spacer(modifier = Modifier.height(13.dp))
 
-        FilterTabs()
-
-        CategorySelection(
-            categories = categories,
-            onCheckedChange = onCheckedChange
+        FilterTabs(
+            selectedIndex = selectedTabIndex,
+            onTabSelected = { selectedTabIndex = it }
         )
+
+        when (selectedTabIndex) {
+            0 -> EmptyFilter()
+            1 -> EmptyFilter()
+            2 -> CategorySelection(
+                categories = categories,
+                onCheckedChange = onCheckedChange
+            )
+
+            3 -> EmptyFilter()
+        }
+    }
+}
+
+@Composable
+private fun EmptyFilter() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text("빈 화면")
     }
 }
 
