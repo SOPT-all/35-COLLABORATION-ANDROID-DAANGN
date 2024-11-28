@@ -26,10 +26,7 @@ class ViewModelFactory : ViewModelProvider.Factory {
 
             ProductDetailViewModel::class.java -> {
                 ProductDetailViewModel(
-                    ProductDetailRepositoryImpl(
-                        ServicePool.productService,
-                        ServicePool.userService
-                    ),
+                    ProductDetailRepositoryImpl(ServicePool.productService),
                     UserRepositoryImpl(ServicePool.userService)
                 ) as T
             }

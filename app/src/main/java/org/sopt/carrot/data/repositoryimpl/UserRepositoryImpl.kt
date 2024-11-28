@@ -1,6 +1,7 @@
 package org.sopt.carrot.data.repositoryimpl
 
-import org.sopt.carrot.data.mapper.ProductDetailMapper.toModel
+
+import org.sopt.carrot.data.mapper.toModel
 import org.sopt.carrot.data.service.UserService
 import org.sopt.carrot.domain.repository.UserRepository
 

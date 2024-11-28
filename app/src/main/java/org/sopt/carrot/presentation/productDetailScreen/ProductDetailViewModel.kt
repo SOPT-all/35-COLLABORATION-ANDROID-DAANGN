@@ -36,7 +36,7 @@ class ProductDetailViewModel(
 
                 _uiState.value = UiState.Success(DetailState(productInfo, userInfo, relatedProducts))
             } catch (e: Exception) {
-                e.printStackTrace()  // 로그 추가
+                e.printStackTrace()
                 _uiState.value = UiState.Error(e.message)
             }
         }

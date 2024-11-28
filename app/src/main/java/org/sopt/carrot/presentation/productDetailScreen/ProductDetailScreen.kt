@@ -47,7 +47,7 @@ fun ProductDetailScreen(
     modifier: Modifier = Modifier
 ) {
     val onBackClick: () -> Unit = { navController.popBackStack() }
-    val onHomeClick = { navController.navigate(ScreenRoutes.EXAMPLE_SCREEN_1) }
+    val onHomeClick = { navController.navigate(ScreenRoutes.MAIN_SCREEN) }
 
     val viewModel: ProductDetailViewModel = viewModel(factory = ViewModelFactory())
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
