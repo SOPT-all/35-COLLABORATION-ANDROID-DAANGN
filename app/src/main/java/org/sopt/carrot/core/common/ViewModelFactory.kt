@@ -1,11 +1,12 @@
 package org.sopt.carrot.core.common
 
-import ProductDetailRepositoryImpl
+import org.sopt.carrot.data.repositoryimpl.ProductDetailRepositoryImpl
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import org.sopt.carrot.data.ServicePool
 import org.sopt.carrot.data.repositoryimpl.DummyRepositoryImpl
 import org.sopt.carrot.data.repositoryimpl.SearchRepositoryImpl
+import org.sopt.carrot.data.repositoryimpl.UserRepositoryImpl
 import org.sopt.carrot.presentation.ExampleScreen1.ExampleScreen1ViewModel
 import org.sopt.carrot.presentation.productDetailScreen.ProductDetailViewModel
 import org.sopt.carrot.presentation.titleSearchScreen.SearchViewModel
@@ -28,7 +29,8 @@ class ViewModelFactory : ViewModelProvider.Factory {
                     ProductDetailRepositoryImpl(
                         ServicePool.productService,
                         ServicePool.userService
-                    )
+                    ),
+                    UserRepositoryImpl(ServicePool.userService)
                 ) as T
             }
 
