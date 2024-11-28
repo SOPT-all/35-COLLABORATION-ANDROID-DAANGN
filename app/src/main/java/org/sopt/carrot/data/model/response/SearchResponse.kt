@@ -1,4 +1,4 @@
-package org.sopt.carrot.data.dto.response
+package org.sopt.carrot.data.model.response
 
 import kotlinx.serialization.Serializable
 

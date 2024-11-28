@@ -17,7 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.sopt.carrot.data.dto.response.Product
+import org.sopt.carrot.data.model.response.Product
 import org.sopt.carrot.presentation.titleSearchScreen.components.product.ProductResultContent
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchFilterLayout
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchKeywordLayout

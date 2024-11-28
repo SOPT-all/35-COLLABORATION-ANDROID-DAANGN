@@ -12,7 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.sopt.carrot.data.dto.response.Product
+import org.sopt.carrot.data.model.response.Product
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 @Composable
