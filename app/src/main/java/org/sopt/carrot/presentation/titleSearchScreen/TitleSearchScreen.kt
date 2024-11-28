@@ -2,13 +2,9 @@ package org.sopt.carrot.presentation.titleSearchScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,19 +16,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import org.sopt.carrot.R
 import org.sopt.carrot.core.common.ViewModelFactory
-import org.sopt.carrot.data.model.SearchProductModel
 import org.sopt.carrot.domain.model.SearchModel
 import org.sopt.carrot.presentation.ScreenRoutes
+import org.sopt.carrot.presentation.titleSearchScreen.components.product.LoadingIndicator
 import org.sopt.carrot.presentation.titleSearchScreen.components.product.ProductResultContent
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchFilterLayout
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchKeywordLayout
-import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchScreenToggle
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchTabs
 import org.sopt.carrot.presentation.titleSearchScreen.components.search.SearchTopBar
 import org.sopt.carrot.presentation.util.UiState
@@ -60,7 +54,7 @@ fun TitleSearchScreen(navController: NavHostController) {
                     searchQuery = it
                 },
                 onSearch = { viewModel.searchProducts(searchQuery) },
-                onBackClick = {  }
+                onBackClick = { }
             )
         }
 
@@ -70,9 +64,7 @@ fun TitleSearchScreen(navController: NavHostController) {
 
         when (searchState) {
             is UiState.Loading -> {
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
+                LoadingIndicator()
             }
 
             is UiState.Success -> {
