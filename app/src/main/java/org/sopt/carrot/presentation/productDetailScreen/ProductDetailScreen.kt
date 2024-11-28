@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -26,6 +27,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import org.sopt.carrot.R
 import org.sopt.carrot.core.common.ViewModelFactory
 import org.sopt.carrot.presentation.ScreenRoutes
 import org.sopt.carrot.presentation.productDetailScreen.components.KeywordAlertSection
@@ -157,7 +159,7 @@ private fun ErrorScreen(){
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Text("에러가 발생했습니다.")
+        Text(stringResource(R.string.product_info_error_screen))
     }
 }
 
