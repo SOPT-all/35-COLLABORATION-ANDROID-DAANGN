@@ -3,62 +3,92 @@ package org.sopt.carrot.presentation.category
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import org.sopt.carrot.data.repositoryimpl.ClientException
+import org.sopt.carrot.data.repositoryimpl.ServerException
+import org.sopt.carrot.domain.repository.CategoryRepository
 
-class CategoryViewmodel : ViewModel() {
+class CategoryViewmodel(
+    private val categoryRepository: CategoryRepository,
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
 
-    private val categories = listOf(
-        "디지털기기",
-        "가구/인테리어",
-        "유아동",
-        "여성의류",
-        "여성잡화",
-        "남성패션/잡화",
-        "생활가전",
-        "생활/주방",
-        "스포츠/레저",
-        "취미/게임/음반",
-        "뷰티/미용",
-        "식물",
-        "가공식품",
-        "건강기능식품",
-        "반려동물용품",
-        "티켓/교환권",
-        "도서",
-        "유아도서",
-        "기타 중고물품",
-        "삽니다"
+    var categories by mutableStateOf(
+        value = savedStateHandle.get<Map<String, Boolean>>(CATEGORIES_KEY) ?: emptyMap()
     )
-
-    var categorySelections by mutableStateOf(categories.associateWith { false })
         private set
 
-    var selectedCategories by mutableStateOf<List<String>>(emptyList())
+    var selectedCategories by mutableStateOf(
+        value = savedStateHandle.get<List<String>>(SELECTED_CATEGORIES_KEY) ?: emptyList()
+    )
         private set
 
-    fun check(): Boolean = (selectedCategories.isNotEmpty())
+    fun fetchCategory() {
+        if (categories.isNotEmpty()) return
+        viewModelScope.launch {
+            val result = categoryRepository.fetchCategories()
+
+            result
+                .onSuccess { fetchedCategories ->
+                    initializeCategories(fetchedCategories.categories)
+                }
+                .onFailure { error ->
+                    val errorMessage = when (error) {
+                        is ClientException -> error.message
+                        is ServerException -> error.message
+                        else -> "알 수 없는 오류 발생."
+                    }
+                }
+        }
+    }
+
+    private fun initializeCategories(fetchedCategories: List<String>) {
+        categories = fetchedCategories.associateWith { false }
+    }
 
     fun toggleCategoryProcess(category: String) {
-        toggleCategory(category)
-        addSelectedCategories(category)
+        val newCategories = toggleCategory(category)
+        updateCategories(newCategories)
+
+        val newSelected = addSelectedCategories(newCategories, category)
+        updateSelectedCategories(newSelected)
     }
 
-    private fun toggleCategory(category: String) {
-        categorySelections = categorySelections.toMutableMap().apply {
+    private fun toggleCategory(category: String): MutableMap<String, Boolean> =
+        categories.toMutableMap().apply {
             this[category] = !(this[category] ?: false)
         }
+
+    private fun updateCategories(newCategories: Map<String, Boolean>) {
+        categories = newCategories
+        savedStateHandle[CATEGORIES_KEY] = newCategories
     }
 
-    private fun addSelectedCategories(category: String) {
-        selectedCategories = when (categorySelections[category] == true) {
-            true -> selectedCategories.plus(category)
-            false -> selectedCategories.minus(category)
-        }
+    private fun addSelectedCategories(
+        newCategories: MutableMap<String, Boolean>,
+        category: String
+    ) = when (newCategories[category] == true) {
+        true -> selectedCategories.plus(category)
+        false -> selectedCategories.minus(category)
+    }
+
+    private fun updateSelectedCategories(newSelected: List<String>) {
+        selectedCategories = newSelected
+        savedStateHandle[SELECTED_CATEGORIES_KEY] = newSelected
     }
 
     fun clearSelectedCategories() {
-        categorySelections = categories.associateWith { false }
-        selectedCategories = emptyList()
+        updateCategories(categories.mapValues { false })
+        updateSelectedCategories(emptyList())
     }
 
+    fun check(): Boolean = (selectedCategories.isNotEmpty())
+
+    companion object {
+        private const val CATEGORIES_KEY = "categories_key"
+        private const val SELECTED_CATEGORIES_KEY = "selected_categories_key"
+    }
 }
