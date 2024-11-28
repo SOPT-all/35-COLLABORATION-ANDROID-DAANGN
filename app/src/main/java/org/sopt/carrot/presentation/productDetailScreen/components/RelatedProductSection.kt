@@ -1,6 +1,5 @@
 package org.sopt.carrot.presentation.productDetailScreen.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,23 +22,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import org.sopt.carrot.R
-import org.sopt.carrot.presentation.productDetailScreen.model.UiRelatedProductDto
-import org.sopt.carrot.presentation.productDetailScreen.model.UiUserInfoDto
+import org.sopt.carrot.domain.model.RelatedProductModel
+import org.sopt.carrot.domain.model.UserDetailModel
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 
 @Composable
 fun RelatedProductSection(
-    userInfo: UiUserInfoDto,
-    relatedProducts: List<UiRelatedProductDto>,
+    userInfo: UserDetailModel,
+    relatedProducts: List<RelatedProductModel>,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -83,7 +80,7 @@ fun RelatedProductSection(
 
 @Composable
 private fun RelatedProductItem(
-    product: UiRelatedProductDto,
+    product: RelatedProductModel,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -107,7 +104,7 @@ private fun RelatedProductItem(
         }
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Text(
-                text = product.title,
+                text = product.title ?: "",
                 style = CarrotTheme.typography.body.md_15_05,
                 color = CarrotTheme.colors.gray8,
                 maxLines = 1,
@@ -120,27 +117,4 @@ private fun RelatedProductItem(
             )
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun RelatedProductSectionPreview() {
-    val sampleProducts = List(4) {
-        UiRelatedProductDto(
-            productImage = "",
-            title = "이렇게 제목이 길어지면 니가 뭘 할 수 있는데 이 자식아 ${it + 1}",
-            price = "${(it + 1) * 10000}원"
-        )
-    }
-
-    val mockUserInfo = UiUserInfoDto(
-        nickname = "민점",
-        profileImage = "",
-        address = "송파구 삼정동"
-    )
-
-    RelatedProductSection(
-        userInfo = mockUserInfo,
-        relatedProducts = sampleProducts
-    )
 }
