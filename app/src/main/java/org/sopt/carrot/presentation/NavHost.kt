@@ -18,7 +18,7 @@ import org.sopt.carrot.presentation.productDetailScreen.ProductDetailScreen
 fun AppNavHost(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
-        startDestination = ScreenRoutes.TITLE_SEARCH,
+        startDestination = "example_screen_1",
         modifier = modifier
     ) {
         composable(ScreenRoutes.TITLE_SEARCH) {
