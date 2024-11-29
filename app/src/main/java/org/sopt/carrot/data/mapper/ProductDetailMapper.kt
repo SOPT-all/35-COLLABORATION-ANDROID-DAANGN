@@ -2,10 +2,10 @@ package org.sopt.carrot.data.mapper
 
 import org.sopt.carrot.data.model.response.ResponseProductInfoDto
 import org.sopt.carrot.data.model.response.ResponseRelatedProductsDto
-import org.sopt.carrot.domain.model.ProductDetailModel
-import org.sopt.carrot.domain.model.RelatedProductModel
+import org.sopt.carrot.domain.model.ProductDetail
+import org.sopt.carrot.domain.model.RelatedProduct
 
-internal fun ResponseProductInfoDto.toModel() = ProductDetailModel(
+fun ResponseProductInfoDto.toProductDetail() = ProductDetail(
     productId = productId,
     productImage = productImage,
     title = title,
@@ -15,7 +15,7 @@ internal fun ResponseProductInfoDto.toModel() = ProductDetailModel(
     view = view
 )
 
-internal fun ResponseRelatedProductsDto.RelatedProduct.toModel() = RelatedProductModel(
+fun ResponseRelatedProductsDto.RelatedProduct.toRelatedProduct() = RelatedProduct(
     id = id,
     productImage = productImage,
     title = title,
