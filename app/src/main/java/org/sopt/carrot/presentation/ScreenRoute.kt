@@ -7,6 +7,7 @@ object ScreenRoutes {
     const val CATEGORY_SCREEN = "category_screen"
     const val MAIN_SCREEN = "main_screen"
     const val SELLER_PROFILE_SCREEN = "seller_profile_screen"
+    const val SELLER_PROFILE_SCREEN_WITH_ARGS = "$SELLER_PROFILE_SCREEN/{userId}"
     const val PRODUCT_DETAIL = "product_detail"
     const val PRODUCT_DETAIL_WITH_ARGS = "$PRODUCT_DETAIL/{productId}/{userId}"
 }
