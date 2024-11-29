@@ -15,6 +15,15 @@
 
 <br>
 
+## 🥕 시연 영상
+https://github.com/user-attachments/assets/f409f557-0204-4c97-b112-b8a46e692ce5
+
+
+<br>
+
+## 🥕 UI단 설계
+🗒️ [UI 설계 노션](https://rightful-narwhal-db9.notion.site/UI-14d037058d2080828015cfc20feee84c?pvs=4)
+<br>
 
 ## 🥕 안드 당근 그라운드 룰
 
