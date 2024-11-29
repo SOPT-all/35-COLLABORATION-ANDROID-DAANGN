@@ -10,8 +10,8 @@
 
 |                **SOPT 35th 모바일6팀 당근**                |               **[Hyoeun Joo](https://github.com/hyoeunjoo)**               |               **[Daehyun Kim](https://github.com/wjdrjs00)**               |               **[Minjae Han](https://github.com/angryPodo)**               |
 |:---------------------------------------------------------:|:--------------------------------------------------------------------------:|:---------------------------------------------------------------------------:|:---------------------------------------------------------------------------:|
-| ![carrot](https://github.com/user-attachments/assets/87bd1b1c-5231-4a5b-84d7-68a38c57e435) | ![carrot](https://github.com/user-attachments/assets/87bd1b1c-5231-4a5b-84d7-68a38c57e435) | ![carrot](https://github.com/user-attachments/assets/87bd1b1c-5231-4a5b-84d7-68a38c57e435) | ![carrot](https://github.com/user-attachments/assets/87bd1b1c-5231-4a5b-84d7-68a38c57e435) |
-|         SOPT 35th 모바일6팀 당근            |             Screen1                |                 Screen2                   |       Screen3           |
+| ![carrot](https://github.com/user-attachments/assets/87bd1b1c-5231-4a5b-84d7-68a38c57e435) | ![carrot](https://avatars.githubusercontent.com/u/137873124?v=4) | ![carrot](https://avatars.githubusercontent.com/u/132973917?v=4) | ![carrot](https://avatars.githubusercontent.com/u/160750136?v=4) |
+|         SOPT 35th 모바일6팀 당근            |            메인뷰               |                 카테고리뷰, 마이페이지뷰                  |       검색뷰, 상세화면뷰          |
 
 <br>
 
@@ -98,13 +98,22 @@
 ## 📁 𝙁𝙤𝙡𝙙𝙚𝙧𝙞𝙣𝙜
 ```
 📂 DAANGN
+┣ 📁 core
+┃┣ 📁 common
+┃┣ 📁 extension
 ┣ 📁 data
-┃ ┣ 📁 model
+┃ ┣ 📁 mapper
+┃ ┣ 📁 dto
 ┃ ┃ ┣ 📁 response
 ┃ ┃ ┗ 📁 request
-┃ ┣ 📁 repository
+┃ ┣ 📁 repositoryImpl
 ┃ ┗ 📁 service
 ┣ 📁 presentation
+┃ ┣ 📁 category
+┃ ┣ 📁 detail
+┃ ┣ 📁 main
+┃ ┣ 📁 titleSearch
+┃ ┗ 📁 sellerProfile
 ┣ 📁 util
 ┃ ┗ 📁 component
 ```
