@@ -72,7 +72,7 @@ fun ProductItemCard(item: HomeProduct) {
             modifier = Modifier
                 .size(108.dp)
                 .clip(RoundedCornerShape(6.dp))
-                .background(Color.Gray),
+                .background(Color.White),
             contentScale = ContentScale.Crop
         )
 
@@ -128,7 +128,7 @@ fun ProductItemCard(item: HomeProduct) {
             Spacer(modifier = Modifier.height(6.dp))
 
             Text(
-                text = item.price,
+                text = "${item.price}원",
                 style = CarrotTheme.typography.body.sb_17_08,
                 color = Color.Black
             )
