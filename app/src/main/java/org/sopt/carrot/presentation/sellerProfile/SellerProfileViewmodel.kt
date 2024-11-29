@@ -1,10 +1,10 @@
 package org.sopt.carrot.presentation.sellerProfile
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.carrot.data.repositoryimpl.ClientException
 import org.sopt.carrot.data.repositoryimpl.ServerException
@@ -15,15 +15,8 @@ class SellerProfileViewmodel(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    var sellerProfile by mutableStateOf(
-        UserDetail(
-            userId = -1L,
-            nickname = "",
-            profileImage = "",
-            address = ""
-        )
-    )
-        private set
+    private val _sellerProfile = MutableStateFlow<UserDetail?>(null)
+    val sellerProfile: StateFlow<UserDetail?> = _sellerProfile.asStateFlow()
 
     fun fetchSellerProfile(userId: Long) {
         viewModelScope.launch {
@@ -31,7 +24,7 @@ class SellerProfileViewmodel(
 
             result
                 .onSuccess { fetchedSellerProfile ->
-                    sellerProfile = fetchedSellerProfile
+                    _sellerProfile.value = fetchedSellerProfile
                 }
                 .onFailure { error ->
                     val errorMessage = when (error) {

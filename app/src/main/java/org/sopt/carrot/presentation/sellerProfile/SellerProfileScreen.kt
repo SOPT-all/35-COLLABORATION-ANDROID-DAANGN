@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,7 +49,7 @@ fun SellerProfileScreen(
         viewmodel.fetchSellerProfile(userId)
     }
 
-    val sellerProfile = viewmodel.sellerProfile
+    val sellerProfile by viewmodel.sellerProfile.collectAsState()
 
     Column(
         modifier = Modifier
@@ -72,10 +73,12 @@ fun SellerProfileScreen(
                 )
             }
 
-            SellerProfileContent(
-                onFollowClick = { isDialogVisible = true },
-                sellerProfile = sellerProfile
-            )
+            sellerProfile?.let { profile ->
+                SellerProfileContent(
+                    onFollowClick = { isDialogVisible = true },
+                    sellerProfile = profile
+                )
+            }
         }
     }
 }
