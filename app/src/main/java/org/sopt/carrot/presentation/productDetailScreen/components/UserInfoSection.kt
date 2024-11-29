@@ -28,12 +28,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import org.sopt.carrot.R
-import org.sopt.carrot.domain.model.UserDetailModel
+import org.sopt.carrot.domain.model.UserDetail
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 @Composable
 fun UserInfoSection(
-    userInfo: UserDetailModel,
+    userInfo: UserDetail,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -116,7 +116,7 @@ fun UserInfoSection(
 @Composable
 private fun UserInfoSectionPreview() {
     UserInfoSection(
-        userInfo = UserDetailModel(
+        userInfo = UserDetail(
             nickname = "한민재",
             profileImage = "",
             address = "송파구 삼정동",

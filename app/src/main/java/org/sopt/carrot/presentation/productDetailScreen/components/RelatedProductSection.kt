@@ -28,15 +28,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import org.sopt.carrot.R
-import org.sopt.carrot.domain.model.RelatedProductModel
-import org.sopt.carrot.domain.model.UserDetailModel
+import org.sopt.carrot.domain.model.RelatedProduct
+import org.sopt.carrot.domain.model.UserDetail
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 
 @Composable
 fun RelatedProductSection(
-    userInfo: UserDetailModel,
-    relatedProducts: List<RelatedProductModel>,
+    userInfo: UserDetail,
+    relatedProducts: List<RelatedProduct>,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -80,7 +80,7 @@ fun RelatedProductSection(
 
 @Composable
 private fun RelatedProductItem(
-    product: RelatedProductModel,
+    product: RelatedProduct,
     modifier: Modifier = Modifier
 ) {
     Column(

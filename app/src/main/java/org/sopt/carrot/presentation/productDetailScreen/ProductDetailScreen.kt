@@ -29,6 +29,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import org.sopt.carrot.R
 import org.sopt.carrot.core.common.ViewModelFactory
+import org.sopt.carrot.domain.model.ProductDetailInfo
 import org.sopt.carrot.presentation.ScreenRoutes
 import org.sopt.carrot.presentation.productDetailScreen.components.KeywordAlertSection
 import org.sopt.carrot.presentation.productDetailScreen.components.ProductBottomBar
@@ -88,10 +89,10 @@ fun ProductDetailScreen(
         },
         bottomBar = {
             if (uiState is UiState.Success) {
-                val state = (uiState as UiState.Success<ProductDetailViewModel.DetailState>).data
+                val productInfo = (uiState as UiState.Success<ProductDetailInfo>).data.productInfo
                 ProductBottomBar(
                     onLikeClick = {},
-                    productPrice = state.productInfo.price
+                    productPrice = productInfo.price
                 )
             }
         }
@@ -100,7 +101,7 @@ fun ProductDetailScreen(
             is UiState.Loading -> LoadingScreen()
 
             is UiState.Success -> {
-                val state = (uiState as UiState.Success<ProductDetailViewModel.DetailState>).data
+                val productDetailInfo = (uiState as UiState.Success<ProductDetailInfo>).data
                 LazyColumn(
                     state = scrollState,
                     contentPadding = PaddingValues(bottom = paddingValues.calculateBottomPadding()),
@@ -109,33 +110,33 @@ fun ProductDetailScreen(
                         .zIndex(0f)
                         .background(color = Color.White)
                 ) {
-                    item { ProductImageSection(productImage = state.productInfo.productImage) }
+                    item { ProductImageSection(productImage = productDetailInfo.productInfo.productImage) }
 
                     item {
                         UserInfoSection(
-                            userInfo = state.userInfo,
+                            userInfo = productDetailInfo.userInfo,
                             modifier = Modifier.padding(horizontal = 16.dp)
                         )
                     }
 
                     item {
                         ProductInfoSection(
-                            productInfo = state.productInfo,
+                            productInfo = productDetailInfo.productInfo,
                             modifier = Modifier.padding(horizontal = 16.dp)
                         )
                     }
 
                     item {
                         RelatedProductSection(
-                            userInfo = state.userInfo,
-                            relatedProducts = state.relatedProducts,
+                            userInfo = productDetailInfo.userInfo,
+                            relatedProducts = productDetailInfo.relatedProducts,
                             modifier = Modifier.padding(horizontal = 16.dp)
                         )
                     }
 
                     item {
                         KeywordAlertSection(
-                            productTitle = state.productInfo.title ?: "",
+                            productTitle = productDetailInfo.productInfo.title ?: "",
                             modifier = Modifier.padding(horizontal = 16.dp)
                         )
                     }
@@ -154,7 +155,7 @@ fun ProductDetailScreen(
 }
 
 @Composable
-private fun ErrorScreen(){
+private fun ErrorScreen() {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center

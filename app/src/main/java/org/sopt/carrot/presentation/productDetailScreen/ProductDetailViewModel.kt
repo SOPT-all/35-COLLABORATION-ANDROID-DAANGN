@@ -6,9 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.sopt.carrot.domain.model.ProductDetailModel
-import org.sopt.carrot.domain.model.RelatedProductModel
-import org.sopt.carrot.domain.model.UserDetailModel
+import org.sopt.carrot.domain.model.ProductDetailInfo
 import org.sopt.carrot.domain.repository.ProductDetailRepository
 import org.sopt.carrot.domain.repository.UserRepository
 import org.sopt.carrot.presentation.util.UiState
@@ -17,27 +15,29 @@ class ProductDetailViewModel(
     private val productRepository: ProductDetailRepository,
     private val userRepository: UserRepository
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<UiState<DetailState>>(UiState.Loading)
-    val uiState: StateFlow<UiState<DetailState>> = _uiState.asStateFlow()
-
-    data class DetailState(
-        val productInfo: ProductDetailModel,
-        val userInfo: UserDetailModel,
-        val relatedProducts: List<RelatedProductModel>
-    )
+    private val _uiState = MutableStateFlow<UiState<ProductDetailInfo>>(UiState.Loading)
+    val uiState: StateFlow<UiState<ProductDetailInfo>> = _uiState.asStateFlow()
 
     fun fetchProductDetail(productId: Long, userId: Long) {
         viewModelScope.launch {
             _uiState.value = UiState.Loading
-            try {
-                val productInfo = productRepository.getProductInfo(productId).getOrThrow()
-                val userInfo = userRepository.getUserInfo(userId).getOrThrow()
-                val relatedProducts = productRepository.getSellingProducts(userId).getOrThrow()
 
-                _uiState.value = UiState.Success(DetailState(productInfo, userInfo, relatedProducts))
-            } catch (e: Exception) {
-                e.printStackTrace()
-                _uiState.value = UiState.Error(e.message)
+            runCatching {
+                Triple(
+                    productRepository.getProductInfo(productId).getOrThrow(),
+                    userRepository.getUserInfo(userId).getOrThrow(),
+                    productRepository.getSellingProducts(userId).getOrThrow()
+                )
+            }.onSuccess { (productInfo, userInfo, relatedProducts) ->
+                _uiState.value = UiState.Success(
+                    ProductDetailInfo(
+                        productInfo = productInfo,
+                        userInfo = userInfo,
+                        relatedProducts = relatedProducts
+                    )
+                )
+            }.onFailure { error ->
+                _uiState.value = UiState.Error(error.message)
             }
         }
     }

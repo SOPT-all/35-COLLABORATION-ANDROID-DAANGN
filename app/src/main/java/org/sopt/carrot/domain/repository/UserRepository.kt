@@ -1,7 +1,7 @@
 package org.sopt.carrot.domain.repository
 
-import org.sopt.carrot.domain.model.UserDetailModel
+import org.sopt.carrot.domain.model.UserDetail
 
 interface UserRepository {
-    suspend fun getUserInfo(userId: Long): Result<UserDetailModel>
+    suspend fun getUserInfo(userId: Long): Result<UserDetail>
 }

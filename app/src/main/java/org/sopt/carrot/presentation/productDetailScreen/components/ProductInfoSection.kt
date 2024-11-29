@@ -15,12 +15,12 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import org.sopt.carrot.R
-import org.sopt.carrot.domain.model.ProductDetailModel
+import org.sopt.carrot.domain.model.ProductDetail
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 @Composable
 fun ProductInfoSection(
-    productInfo: ProductDetailModel,
+    productInfo: ProductDetail,
     modifier: Modifier = Modifier
 ) {
     Column(
