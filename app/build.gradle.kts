@@ -103,4 +103,7 @@ dependencies {
     ksp(libs.hilt.android.compiler)
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.manager)
+
+    implementation ("com.jakewharton.timber:timber:5.0.1")
+
 }
