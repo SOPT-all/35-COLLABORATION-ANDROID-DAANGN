@@ -2,7 +2,6 @@ package org.sopt.carrot.presentation.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +20,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -31,66 +33,131 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.testing.TestNavHostController
 import org.sopt.carrot.R
+import org.sopt.carrot.core.common.ViewModelFactory
+import org.sopt.carrot.core.extension.noRippleClickable
 import org.sopt.carrot.presentation.ScreenRoutes
 import org.sopt.carrot.presentation.main.component.FilterChipButton
 import org.sopt.carrot.presentation.main.component.MainFloatingButton
 import org.sopt.carrot.presentation.main.component.ProductList
 import org.sopt.carrot.presentation.main.component.TagChipButton
+import org.sopt.carrot.presentation.util.UiState
 import org.sopt.carrot.ui.theme.CarrotTheme
-import timber.log.Timber
-
 
 @Composable
-fun MainScreen(
-    navController: NavController,
-) {
+fun MainScreen(navController: NavController) {
     val listState = rememberLazyListState()
-    val viewModel = MainViewModel()
-    val products = viewModel.products.value
+    val viewModel: MainViewModel = viewModel(factory = ViewModelFactory())
+    val uiState by viewModel.product.collectAsState()
 
-    val savedStateHandle = navController.previousBackStackEntry?.savedStateHandle
-    val selectedCategories = savedStateHandle?.get<List<String>>("selectedCategories") ?: emptyList()
-    Timber.d("$selectedCategories")
+    val tagList = remember { mutableStateListOf<String>() }
+
+    LaunchedEffect(Unit) {
+        tagList.clear()
+        tagList.addAll(
+            navController.previousBackStackEntry?.savedStateHandle?.get<List<String>>("selectedCategories")
+                ?: emptyList()
+        )
+        viewModel.setCategory(if (tagList.isEmpty()) null else tagList)
+        viewModel.getHomeProduct()
+    }
+
+    LaunchedEffect(tagList.size) {
+        if (tagList.isEmpty()) {
+            viewModel.setCategory(null)
+            viewModel.getHomeProduct()
+        }
+    }
+
+    LaunchedEffect(uiState) {
+        if (uiState is UiState.Success) {
+            listState.scrollToItem(0)
+        }
+    }
+
+    val updatedProducts = remember(uiState) {
+        if (uiState is UiState.Success) {
+            addRandomDataToProducts((uiState as UiState.Success).data)
+        } else {
+            emptyList()
+        }
+    }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White),
+            .background(color = Color.White)
     ) {
-        MainBottomBar(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .zIndex(1f)
-        )
-
         Column(
             modifier = Modifier
-                .padding(bottom = 56.dp)
-                .zIndex(0f),
-            verticalArrangement = Arrangement.Top
+                .fillMaxSize()
+                .padding(bottom = 56.dp),
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
-            MainTopBar(navController)
+            MainTopBar(navController, onSearchClick = {
+                navController.navigate(ScreenRoutes.TITLE_SEARCH)
+            })
+
             ScrollableFilterBar(navController)
-            MainTagBar()
-            ProductList(items = products, listState = listState)
+
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+            ) {
+                when (uiState) {
+                    is UiState.Loading -> {
+                    }
+
+                    is UiState.Error -> {
+                        Text(
+                            text = "Error: ${(uiState as UiState.Error).message}",
+                            color = Color.Red,
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+                    }
+
+                    is UiState.Success -> {
+                        Column {
+                            if (tagList.isNotEmpty()) {
+                                MainTagBar(
+                                    tagList = tagList,
+                                    onRemoveTag = { tag -> tagList.remove(tag) }
+                                )
+                            }
+                            ProductList(items = updatedProducts, listState = listState)
+                        }
+                    }
+
+                    else -> Unit
+                }
+            }
         }
+
+        MainBottomBar(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+        )
 
         MainFloatingButton(
             listState = listState,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(bottom = 86.dp)
-        ) {
-        }
+                .padding(bottom = 86.dp),
+            onClick = {}
+        )
     }
 }
 
 @Composable
-fun MainTopBar(navController: NavController, modifier: Modifier = Modifier) {
+fun MainTopBar(
+    navController: NavController,
+    modifier: Modifier = Modifier,
+    onSearchClick: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -99,9 +166,7 @@ fun MainTopBar(navController: NavController, modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Text("가락2동", style = CarrotTheme.typography.title.extb_24_1)
             Spacer(modifier = Modifier.width(8.dp))
             Icon(
@@ -116,7 +181,9 @@ fun MainTopBar(navController: NavController, modifier: Modifier = Modifier) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_search_28),
                 contentDescription = stringResource(R.string.main_search_icon),
-                modifier.clickable { navController.navigate(ScreenRoutes.TITLE_SEARCH) }
+                modifier.noRippleClickable {
+                    onSearchClick()
+                }
             )
             Icon(
                 painter = painterResource(id = R.drawable.ic_menu_hamburger_28),
@@ -171,9 +238,11 @@ fun ScrollableFilterBar(navController: NavController) {
     }
 }
 
+
 @Composable
-fun MainTagBar() {
-    val tagList = remember { mutableStateListOf("가락2동 외 59", "가격") }
+fun MainTagBar(
+    tagList: List<String>, onRemoveTag: (String) -> Unit
+) {
     Spacer(modifier = Modifier.padding(top = 12.dp))
     if (tagList.isNotEmpty()) {
         Row(
@@ -189,9 +258,7 @@ fun MainTagBar() {
             tagList.forEach { filterText ->
                 TagChipButton(
                     text = filterText,
-                    onRemoveClick = {
-                        tagList.remove(filterText)
-                    }
+                    onRemoveClick = { onRemoveTag(filterText) }
                 )
             }
         }
