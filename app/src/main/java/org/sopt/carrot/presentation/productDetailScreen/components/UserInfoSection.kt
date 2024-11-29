@@ -28,12 +28,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import org.sopt.carrot.R
+import org.sopt.carrot.core.extension.noRippleClickable
 import org.sopt.carrot.domain.model.UserDetail
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 @Composable
 fun UserInfoSection(
     userInfo: UserDetail,
+    onProfileClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -43,19 +45,30 @@ fun UserInfoSection(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Row {
+        Row(
+            modifier = Modifier
+                .noRippleClickable { onProfileClick(userInfo.userId) }
+        ) {
             Box(
                 modifier = Modifier.size(48.dp),
                 contentAlignment = Alignment.BottomEnd
             ) {
-                AsyncImage(
-                    model = userInfo.profileImage ?: "",
-                    contentDescription = "프로필 이미지",
-                    modifier = Modifier
-                        .size(42.dp)
-                        .clip(CircleShape)
-                        .align(Alignment.TopStart)
-                )
+                if (userInfo.profileImage.isNullOrEmpty()) {
+                    Image(
+                        imageVector = ImageVector.vectorResource(R.drawable.img_user_sm),
+                        contentDescription = null
+                    )
+                } else {
+                    AsyncImage(
+                        model = userInfo.profileImage,
+                        contentDescription = "프로필 이미지",
+                        modifier = Modifier
+                            .size(42.dp)
+                            .clip(CircleShape)
+                            .align(Alignment.TopStart)
+                    )
+                }
+
                 Image(
                     imageVector = ImageVector.vectorResource(id = R.drawable.img_carrier_sm),
                     contentDescription = "캐리어 아이콘",
@@ -93,6 +106,7 @@ fun UserInfoSection(
                 )
             }
         }
+
         Column(
             modifier = Modifier.padding(vertical = 4.dp),
             horizontalAlignment = Alignment.End,
@@ -121,6 +135,7 @@ private fun UserInfoSectionPreview() {
             profileImage = "",
             address = "송파구 삼정동",
             userId = 1
-        )
+        ),
+        onProfileClick = {}
     )
 }

@@ -115,6 +115,9 @@ fun ProductDetailScreen(
                     item {
                         UserInfoSection(
                             userInfo = productDetailInfo.userInfo,
+                            onProfileClick = { userId ->
+                                navController.navigate("${ScreenRoutes.SELLER_PROFILE_SCREEN}/$userId")
+                            },
                             modifier = Modifier.padding(horizontal = 16.dp)
                         )
                     }
