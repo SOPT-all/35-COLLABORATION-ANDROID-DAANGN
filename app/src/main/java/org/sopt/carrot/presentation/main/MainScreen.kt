@@ -2,7 +2,6 @@ package org.sopt.carrot.presentation.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,7 +17,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,6 +38,7 @@ import androidx.navigation.NavController
 import androidx.navigation.testing.TestNavHostController
 import org.sopt.carrot.R
 import org.sopt.carrot.core.common.ViewModelFactory
+import org.sopt.carrot.core.extension.noRippleClickable
 import org.sopt.carrot.presentation.ScreenRoutes
 import org.sopt.carrot.presentation.main.component.FilterChipButton
 import org.sopt.carrot.presentation.main.component.MainFloatingButton
@@ -55,6 +54,7 @@ fun MainScreen(navController: NavController) {
     val uiState by viewModel.product.collectAsState()
 
     val tagList = remember { mutableStateListOf<String>() }
+
     LaunchedEffect(Unit) {
         tagList.clear()
         tagList.addAll(
@@ -71,11 +71,13 @@ fun MainScreen(navController: NavController) {
             viewModel.getHomeProduct()
         }
     }
+
     LaunchedEffect(uiState) {
         if (uiState is UiState.Success) {
             listState.scrollToItem(0)
         }
     }
+
     val updatedProducts = remember(uiState) {
         if (uiState is UiState.Success) {
             addRandomDataToProducts((uiState as UiState.Success).data)
@@ -95,7 +97,9 @@ fun MainScreen(navController: NavController) {
                 .padding(bottom = 56.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            MainTopBar(navController)
+            MainTopBar(navController, onSearchClick = {
+                navController.navigate(ScreenRoutes.TITLE_SEARCH)
+            })
 
             ScrollableFilterBar(navController)
 
@@ -105,9 +109,6 @@ fun MainScreen(navController: NavController) {
             ) {
                 when (uiState) {
                     is UiState.Loading -> {
-                        CircularProgressIndicator(
-                            modifier = Modifier.align(Alignment.Center)
-                        )
                     }
 
                     is UiState.Error -> {
@@ -152,7 +153,11 @@ fun MainScreen(navController: NavController) {
 }
 
 @Composable
-fun MainTopBar(navController: NavController, modifier: Modifier = Modifier) {
+fun MainTopBar(
+    navController: NavController,
+    modifier: Modifier = Modifier,
+    onSearchClick: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -161,9 +166,7 @@ fun MainTopBar(navController: NavController, modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Text("가락2동", style = CarrotTheme.typography.title.extb_24_1)
             Spacer(modifier = Modifier.width(8.dp))
             Icon(
@@ -178,7 +181,9 @@ fun MainTopBar(navController: NavController, modifier: Modifier = Modifier) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_search_28),
                 contentDescription = stringResource(R.string.main_search_icon),
-                modifier.clickable { navController.navigate(ScreenRoutes.TITLE_SEARCH) }
+                modifier.noRippleClickable {
+                    onSearchClick()
+                }
             )
             Icon(
                 painter = painterResource(id = R.drawable.ic_menu_hamburger_28),
