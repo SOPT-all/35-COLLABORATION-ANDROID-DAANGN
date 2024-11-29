@@ -33,9 +33,6 @@ fun AppNavHost(navController: NavHostController, modifier: Modifier = Modifier) 
         ) {
             ProductDetailScreen(navController)
         }
-
-        composable(ScreenRoutes.PRODUCT_DETAIL) { ProductDetailScreen(navController) }
-
         composable(ScreenRoutes.MAIN_SCREEN) { MainScreen(navController) }
 
         composable(ScreenRoutes.EXAMPLE_SCREEN_1) { ExampleScreen1(navController) }

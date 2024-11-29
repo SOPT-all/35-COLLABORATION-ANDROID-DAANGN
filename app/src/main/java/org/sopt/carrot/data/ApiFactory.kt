@@ -13,8 +13,10 @@ import org.sopt.carrot.core.extension.isJsonArray
 import org.sopt.carrot.core.extension.isJsonObject
 import org.sopt.carrot.data.service.CategoryService
 import org.sopt.carrot.data.service.DummyService
+import org.sopt.carrot.data.service.ProductService
 import retrofit2.Converter
 import org.sopt.carrot.data.service.SearchService
+import org.sopt.carrot.data.service.UserService
 import retrofit2.Retrofit
 import timber.log.Timber
 
@@ -61,4 +63,6 @@ object ServicePool {
     val dummyService by lazy { ApiFactory.create<DummyService>() }
     val searchService by lazy { ApiFactory.create<SearchService>() }
     val categoryService by lazy { ApiFactory.create<CategoryService>() }
+    val productService by lazy { ApiFactory.create<ProductService>() }
+    val userService by lazy { ApiFactory.create<UserService>() }
 }

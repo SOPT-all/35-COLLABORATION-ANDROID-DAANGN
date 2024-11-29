@@ -5,16 +5,16 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResponseProductInfoDto(
-    @SerialName("productId")
+    @SerialName("product_id")
     val productId: Long,
-    @SerialName("productImage")
+    @SerialName("product_image")
     val productImage: String,
     @SerialName("title")
-    val title: String,
+    val title: String? = null,
+    @SerialName("content")
+    val content: String? = null,
     @SerialName("category")
     val category: String,
-    @SerialName("content")
-    val content: String,
     @SerialName("price")
     val price: String,
     @SerialName("view")

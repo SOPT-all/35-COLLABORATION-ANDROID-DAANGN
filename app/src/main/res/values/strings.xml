@@ -34,4 +34,5 @@
     <string name="error_search_result">검색 중 오류가 발생했습니다</string>
     <string name="message_no_find">원하는 매물을 찾지 못하셨나요?</string>
     <string name="message_to_recommend">%1$s와 유사한 매물을 보여드릴게요.</string>
+    <string name="product_info_error_screen">에러가 발생했습니다.</string>
 </resources>

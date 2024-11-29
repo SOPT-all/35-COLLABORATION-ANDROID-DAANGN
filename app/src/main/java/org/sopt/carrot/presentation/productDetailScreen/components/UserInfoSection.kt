@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -21,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -30,12 +28,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import org.sopt.carrot.R
-import org.sopt.carrot.presentation.productDetailScreen.model.UiUserInfoDto
+import org.sopt.carrot.domain.model.UserDetail
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 @Composable
 fun UserInfoSection(
-    userInfo: UiUserInfoDto,
+    userInfo: UserDetail,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -51,7 +49,7 @@ fun UserInfoSection(
                 contentAlignment = Alignment.BottomEnd
             ) {
                 AsyncImage(
-                    model = userInfo.profileImage,
+                    model = userInfo.profileImage ?: "",
                     contentDescription = "프로필 이미지",
                     modifier = Modifier
                         .size(42.dp)
@@ -118,10 +116,11 @@ fun UserInfoSection(
 @Composable
 private fun UserInfoSectionPreview() {
     UserInfoSection(
-        userInfo = UiUserInfoDto(
+        userInfo = UserDetail(
             nickname = "한민재",
             profileImage = "",
-            address = "송파구 삼정동"
+            address = "송파구 삼정동",
+            userId = 1
         )
     )
 }
