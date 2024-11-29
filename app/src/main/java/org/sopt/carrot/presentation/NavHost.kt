@@ -51,8 +51,13 @@ fun AppNavHost(navController: NavHostController, modifier: Modifier = Modifier) 
             )
         }
 
-        composable(ScreenRoutes.SELLER_PROFILE_SCREEN) {
-            SellerProfileScreen()
+        composable(
+            route = ScreenRoutes.SELLER_PROFILE_SCREEN_WITH_ARGS,
+            arguments = listOf(
+                navArgument("userId") { type = NavType.LongType }
+            )
+        ) {
+            SellerProfileScreen(navController)
         }
     }
 }

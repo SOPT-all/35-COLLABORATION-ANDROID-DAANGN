@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
@@ -22,7 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
@@ -31,18 +33,20 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import org.sopt.carrot.R
 import org.sopt.carrot.core.extension.noRippleClickable
+import org.sopt.carrot.domain.model.UserDetail
 import org.sopt.carrot.ui.theme.CarrotTheme
 
 @Composable
 fun SellerProfileSection(
-    onFollowClick: () -> Unit
+    onFollowClick: () -> Unit,
+    sellerProfile: UserDetail
 ) {
     Column(
         modifier = Modifier
@@ -55,10 +59,20 @@ fun SellerProfileSection(
             Box(
                 contentAlignment = Alignment.BottomEnd
             ) {
-                Image(
-                    imageVector = ImageVector.vectorResource(R.drawable.img_user_lg),
-                    contentDescription = null
-                )
+                if (sellerProfile.profileImage.isNullOrEmpty()) {
+                    Image(
+                        imageVector = ImageVector.vectorResource(R.drawable.img_user_lg),
+                        contentDescription = null
+                    )
+                } else {
+                    AsyncImage(
+                        model = sellerProfile.profileImage,
+                        contentDescription = "프로필 이미지",
+                        modifier = Modifier
+                            .size(62.dp)
+                            .clip(CircleShape)
+                    )
+                }
                 Image(
                     imageVector = ImageVector.vectorResource(R.drawable.img_carrier_md),
                     contentDescription = null
@@ -73,7 +87,7 @@ fun SellerProfileSection(
                     horizontalArrangement = Arrangement.spacedBy(3.dp)
                 ) {
                     Text(
-                        text = "헿헿",
+                        text = sellerProfile.nickname,
                         color = CarrotTheme.colors.gray8,
                         style = CarrotTheme.typography.body.b_18
                     )
@@ -291,6 +305,12 @@ fun SellerProfileSection(
 @Composable
 private fun PreviewSellerProfileSection() {
     SellerProfileSection(
-        onFollowClick = {}
+        onFollowClick = {},
+        sellerProfile = UserDetail(
+            userId = 1L,
+            nickname = "asd",
+            profileImage = "",
+            address = ""
+        )
     )
 }
