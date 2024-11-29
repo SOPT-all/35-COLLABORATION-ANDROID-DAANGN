@@ -1,6 +1,6 @@
 package org.sopt.carrot.domain.model
 
-data class UserDetailModel(
+data class UserDetail(
     val userId: Long,
     val nickname: String,
     val profileImage: String? = null,

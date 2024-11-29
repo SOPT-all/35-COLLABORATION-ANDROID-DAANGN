@@ -1,6 +1,6 @@
 package org.sopt.carrot.domain.model
 
-data class ProductDetailModel(
+data class ProductDetail(
     val productId: Long,
     val productImage: String,
     val title: String? = null,
@@ -10,7 +10,7 @@ data class ProductDetailModel(
     val view: Int
 )
 
-data class RelatedProductModel(
+data class RelatedProduct(
     val id: Long,
     val productImage: String,
     val title: String? = null,
