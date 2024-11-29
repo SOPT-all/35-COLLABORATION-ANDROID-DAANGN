@@ -21,8 +21,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,29 +33,37 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.testing.TestNavHostController
 import org.sopt.carrot.R
+import org.sopt.carrot.core.common.ViewModelFactory
 import org.sopt.carrot.presentation.ScreenRoutes
 import org.sopt.carrot.presentation.main.component.FilterChipButton
 import org.sopt.carrot.presentation.main.component.MainFloatingButton
 import org.sopt.carrot.presentation.main.component.ProductList
 import org.sopt.carrot.presentation.main.component.TagChipButton
+import org.sopt.carrot.presentation.util.UiState
 import org.sopt.carrot.ui.theme.CarrotTheme
-import timber.log.Timber
-
 
 @Composable
 fun MainScreen(
     navController: NavController,
 ) {
     val listState = rememberLazyListState()
-    val viewModel = MainViewModel()
-    val products = viewModel.products.value
+    val viewModel: MainViewModel = viewModel(
+        factory = ViewModelFactory()
+    )
+    val uiState by viewModel.product.collectAsState()
 
     val savedStateHandle = navController.previousBackStackEntry?.savedStateHandle
-    val selectedCategories = savedStateHandle?.get<List<String>>("selectedCategories") ?: emptyList()
-    Timber.d("$selectedCategories")
+    val selectedCategories =
+        savedStateHandle?.get<List<String>>("selectedCategories") ?: emptyList()
+
+    LaunchedEffect(selectedCategories) {
+        viewModel.setCategory(selectedCategories)
+        viewModel.getHomeProduct()
+    }
 
     Box(
         modifier = Modifier
@@ -66,17 +75,34 @@ fun MainScreen(
                 .align(Alignment.BottomCenter)
                 .zIndex(1f)
         )
+        when (uiState) {
+            is UiState.Loading -> {
+            }
 
-        Column(
-            modifier = Modifier
-                .padding(bottom = 56.dp)
-                .zIndex(0f),
-            verticalArrangement = Arrangement.Top
-        ) {
-            MainTopBar(navController)
-            ScrollableFilterBar(navController)
-            MainTagBar()
-            ProductList(items = products, listState = listState)
+            is UiState.Error -> {
+            }
+
+            is UiState.Success -> {
+                val products = (uiState as UiState.Success).data
+
+                Column(
+                    modifier = Modifier
+                        .padding(bottom = 56.dp)
+                        .zIndex(0f),
+                    verticalArrangement = Arrangement.Top
+                ) {
+                    MainTopBar(navController)
+                    ScrollableFilterBar(navController)
+
+                    if (selectedCategories.isNotEmpty()) {
+                        MainTagBar(tagList = selectedCategories)
+                    }
+
+                    ProductList(items = products, listState = listState)
+                }
+            }
+
+            else -> Unit
         }
 
         MainFloatingButton(
@@ -84,10 +110,10 @@ fun MainScreen(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 86.dp)
-        ) {
-        }
+        ) {}
     }
 }
+
 
 @Composable
 fun MainTopBar(navController: NavController, modifier: Modifier = Modifier) {
@@ -171,9 +197,9 @@ fun ScrollableFilterBar(navController: NavController) {
     }
 }
 
+
 @Composable
-fun MainTagBar() {
-    val tagList = remember { mutableStateListOf("가락2동 외 59", "가격") }
+fun MainTagBar(tagList: List<String>) {
     Spacer(modifier = Modifier.padding(top = 12.dp))
     if (tagList.isNotEmpty()) {
         Row(
@@ -190,13 +216,13 @@ fun MainTagBar() {
                 TagChipButton(
                     text = filterText,
                     onRemoveClick = {
-                        tagList.remove(filterText)
                     }
                 )
             }
         }
     }
 }
+
 
 @Composable
 fun MainBottomBar(modifier: Modifier = Modifier) {
