@@ -15,7 +15,6 @@ import org.sopt.carrot.presentation.ExampleScreen1.ExampleScreen1ViewModel
 import org.sopt.carrot.presentation.category.CategoryViewmodel
 import org.sopt.carrot.presentation.main.MainViewModel
 import org.sopt.carrot.presentation.productDetailScreen.ProductDetailViewModel
-import org.sopt.carrot.presentation.category.CategoryViewmodel
 import org.sopt.carrot.presentation.sellerProfile.SellerProfileViewModel
 import org.sopt.carrot.presentation.titleSearchScreen.SearchViewModel
 
