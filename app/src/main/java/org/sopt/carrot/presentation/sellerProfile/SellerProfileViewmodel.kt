@@ -11,7 +11,7 @@ import org.sopt.carrot.data.repositoryimpl.ServerException
 import org.sopt.carrot.domain.model.UserDetail
 import org.sopt.carrot.domain.repository.UserRepository
 
-class SellerProfileViewmodel(
+class SellerProfileViewModel(
     private val userRepository: UserRepository
 ) : ViewModel() {
 

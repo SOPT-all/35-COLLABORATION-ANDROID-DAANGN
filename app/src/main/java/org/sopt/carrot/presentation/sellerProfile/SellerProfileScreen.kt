@@ -35,7 +35,7 @@ import org.sopt.carrot.ui.theme.CarrotTheme
 @Composable
 fun SellerProfileScreen(
     navController: NavHostController,
-    viewmodel: SellerProfileViewmodel = viewModel(factory = ViewModelFactory())
+    viewmodel: SellerProfileViewModel = viewModel(factory = ViewModelFactory())
 ) {
 
     var isDialogVisible by remember { mutableStateOf(false) }

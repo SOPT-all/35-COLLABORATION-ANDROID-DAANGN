@@ -13,7 +13,7 @@ import org.sopt.carrot.data.repositoryimpl.UserRepositoryImpl
 import org.sopt.carrot.presentation.ExampleScreen1.ExampleScreen1ViewModel
 import org.sopt.carrot.presentation.productDetailScreen.ProductDetailViewModel
 import org.sopt.carrot.presentation.category.CategoryViewmodel
-import org.sopt.carrot.presentation.sellerProfile.SellerProfileViewmodel
+import org.sopt.carrot.presentation.sellerProfile.SellerProfileViewModel
 import org.sopt.carrot.presentation.titleSearchScreen.SearchViewModel
 
 
@@ -46,8 +46,8 @@ class ViewModelFactory : ViewModelProvider.Factory {
                 ) as T
             }
 
-            SellerProfileViewmodel::class.java -> {
-                SellerProfileViewmodel(
+            SellerProfileViewModel::class.java -> {
+                SellerProfileViewModel(
                     UserRepositoryImpl(ServicePool.userService)
                 ) as T
             }
