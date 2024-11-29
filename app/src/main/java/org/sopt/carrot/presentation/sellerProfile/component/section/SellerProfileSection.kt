@@ -17,6 +17,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -29,13 +30,13 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import org.sopt.carrot.R
@@ -169,35 +170,49 @@ fun SellerProfileSection(
             verticalArrangement = Arrangement.Center
         ) {
             var boxWidth by remember { mutableIntStateOf(0) }
-            val density = LocalDensity.current
+            var textWidth by remember { mutableIntStateOf(0) }
+
+            val calculatedOffset by remember(boxWidth, textWidth) {
+                derivedStateOf {
+                    if (boxWidth > 0 && textWidth > 0) {
+                        ((boxWidth * 0.365f - textWidth / 2f).toInt())
+                    } else {
+                        0
+                    }
+                }
+            }
 
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .onGloballyPositioned { coordinates ->
                         boxWidth = coordinates.size.width
-                    },
-            ) {
-                if (boxWidth > 0) {
-                    Column(
-                        modifier = Modifier
-                            .offset(
-                                x = with(density) { (boxWidth * 0.265f).toDp() }
-                            )
-                            .padding(top = 2.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "첫 온도 36.5℃",
-                            color = CarrotTheme.colors.gray6,
-                            style = CarrotTheme.typography.caption.md_12
-                        )
-                        Icon(
-                            imageVector = ImageVector.vectorResource(R.drawable.ic_triangle_8),
-                            contentDescription = null,
-                            tint = CarrotTheme.colors.gray6
-                        )
                     }
+            ) {
+                Column(
+                    modifier = Modifier
+                        .offset {
+                            IntOffset(
+                                x = calculatedOffset,
+                                y = 0
+                            )
+                        }
+                        .padding(top = 2.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        modifier = Modifier.onGloballyPositioned { coordinates ->
+                            textWidth = coordinates.size.width
+                        },
+                        text = "첫 온도 36.5℃",
+                        color = CarrotTheme.colors.gray6,
+                        style = CarrotTheme.typography.caption.md_12
+                    )
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.ic_triangle_8),
+                        contentDescription = "온도 표시 아이콘",
+                        tint = CarrotTheme.colors.gray6
+                    )
                 }
 
                 Row(
