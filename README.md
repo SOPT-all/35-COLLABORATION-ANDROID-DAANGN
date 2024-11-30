@@ -17,7 +17,9 @@
 
 ## 🥕 시연 영상
 
-![last-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/49b143da-11aa-468f-934b-7e60653cce90)
+
+https://github.com/user-attachments/assets/41eaa39e-0e3d-4831-a93f-9ea2508c4bce
+
 
 <br>
 
