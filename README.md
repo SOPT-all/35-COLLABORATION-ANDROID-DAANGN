@@ -18,7 +18,11 @@
 ## 🥕 시연 영상
 
 
-https://github.com/user-attachments/assets/41eaa39e-0e3d-4831-a93f-9ea2508c4bce
+
+
+https://github.com/user-attachments/assets/2222fd26-8af4-414f-8e41-541e3d1a3f44
+
+
 
 
 <br>
