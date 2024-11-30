@@ -16,8 +16,8 @@
 <br>
 
 ## 🥕 시연 영상
-https://github.com/user-attachments/assets/f409f557-0204-4c97-b112-b8a46e692ce5
 
+![last-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/49b143da-11aa-468f-934b-7e60653cce90)
 
 <br>
 
